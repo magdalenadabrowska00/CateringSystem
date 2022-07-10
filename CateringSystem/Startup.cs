@@ -1,7 +1,9 @@
+using CateringSystem.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +30,10 @@ namespace CateringSystem
         {
 
             services.AddControllers();
+            services.AddDbContext<CateringDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("myConn"));
+            });
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CateringSystem", Version = "v1" });

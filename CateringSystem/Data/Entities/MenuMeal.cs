@@ -2,10 +2,10 @@
 {
     public class MenuMeal
     {
-        public int MenusId { get; set; }
-        public Menus Menus { get; set; }
-        public int MealsId { get; set; }
-        public Meals Meals { get; set; }
+        public int MenuId { get; set; }
+        public Menu Menu { get; set; }
+        public int MealId { get; set; }
+        public Meal Meal { get; set; }
         public int MealAssessment { get; set; }
     }
 }
