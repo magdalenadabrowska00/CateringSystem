@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CateringSystem.Data.Entities
 {
@@ -15,7 +16,7 @@ namespace CateringSystem.Data.Entities
         public int AddressId { get; set; }
         public int RoleId { get; set; }
         public Role Role { get; set; }
-        public Order Order { get; set; }
+        public List<Order> Orders { get; set; }
 
     }
 }

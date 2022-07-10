@@ -270,8 +270,7 @@ namespace CateringSystem.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",
                 table: "Orders",
-                column: "UserId",
-                unique: true);
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Restaurants_AddressId",

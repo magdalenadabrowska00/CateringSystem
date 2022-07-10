@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CateringSystem.Migrations
 {
     [DbContext(typeof(CateringDbContext))]
-    [Migration("20220710114833_init")]
+    [Migration("20220710120541_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -209,8 +209,7 @@ namespace CateringSystem.Migrations
                     b.HasIndex("OrderDeliveryId")
                         .IsUnique();
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -396,8 +395,8 @@ namespace CateringSystem.Migrations
                         .IsRequired();
 
                     b.HasOne("CateringSystem.Data.Entities.User", "User")
-                        .WithOne("Order")
-                        .HasForeignKey("CateringSystem.Data.Entities.Order", "UserId")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -457,7 +456,7 @@ namespace CateringSystem.Migrations
 
             modelBuilder.Entity("CateringSystem.Data.Entities.User", b =>
                 {
-                    b.Navigation("Order");
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
