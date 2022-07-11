@@ -8,6 +8,8 @@ namespace CateringSystem.Data.Entities
         public int MenuTypeId { get; set; }
         public virtual MenuType MenuType { get; set; }
         public List<Meal> Meals { get; set; } 
+        public int OrderId { get; set; }
+        public Order Order { get; set; }
         //public List<MenuMeal> MenuMeals { get; set; } = new List<MenuMeal>();
     }
 }
