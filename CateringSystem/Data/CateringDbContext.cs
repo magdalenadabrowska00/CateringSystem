@@ -102,8 +102,6 @@ namespace CateringSystem.Data
                 .Property(x => x.PhoneNumber).IsRequired();
             modelBuilder.Entity<Restaurant>()
                 .Property(x => x.UrlAddress).IsRequired();
-            modelBuilder.Entity<Restaurant>()
-                .Property(x => x.AddressId).IsRequired();
 
             modelBuilder.Entity<Role>()
                 .Property(x => x.Name).HasMaxLength(50).IsRequired();
