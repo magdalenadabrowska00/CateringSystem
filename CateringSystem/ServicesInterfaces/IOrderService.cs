@@ -5,7 +5,7 @@ namespace CateringSystem.Services
     public interface IOrderService
     {
         OrderDto GetById(int id);
-        //PageResult<OrderDto> GetAll(OrderQuery query);
+        PagedResult<OrderDto> GetAll(Query query);
         //int Create(CreateOrderDto dto);
         //void Delete(int id);
         //void Update(int id, UpdateOrderDto dto);

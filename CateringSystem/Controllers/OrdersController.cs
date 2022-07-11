@@ -26,12 +26,29 @@ namespace CateringSystem.Controllers
 
         // GET: api/Orders/5
         [HttpGet("{id}")]    //użytkownik i zalogowany od którego jest to zamówienie i ci wyżej rangą
+        [ProducesResponseType(StatusCodes.Status200OK, Type=typeof(OrderDto))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<OrderDto> GetOrder(int id)
         {
             var order = _orderService.GetById(id);
 
+            if(order == null) 
+                return NotFound();
+
             return Ok(order);
         }
+
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<OrderDto>))]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public ActionResult<List<OrderDto>> GetAllOrders([FromQuery] Query query)
+        {
+            var orders = _orderService.GetAll(query);
+
+            return Ok(orders);
+        }
+
+
 
     }
 }

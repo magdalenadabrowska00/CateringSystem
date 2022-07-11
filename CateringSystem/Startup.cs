@@ -14,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation.AspNetCore;
 
 namespace CateringSystem
 {
@@ -30,7 +31,7 @@ namespace CateringSystem
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation();
             services.AddScoped<CateringSeeder>();
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<IOrderService, OrderService>();
@@ -38,6 +39,7 @@ namespace CateringSystem
             {
                 options.UseSqlServer(Configuration.GetConnectionString("myConn"));
             });
+            //services.AddHttpContextAccessor();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CateringSystem", Version = "v1" });
