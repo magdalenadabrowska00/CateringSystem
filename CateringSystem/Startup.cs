@@ -1,4 +1,5 @@
 using CateringSystem.Data;
+using CateringSystem.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,8 @@ namespace CateringSystem
 
             services.AddControllers();
             services.AddScoped<CateringSeeder>();
+            services.AddAutoMapper(this.GetType().Assembly);
+            services.AddScoped<IOrderService, OrderService>();
             services.AddDbContext<CateringDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("myConn"));
