@@ -18,6 +18,9 @@ using FluentValidation.AspNetCore;
 using CateringSystem.ServicesInterfaces;
 using Microsoft.AspNetCore.Identity;
 using CateringSystem.Data.Entities;
+using FluentValidation;
+using CateringSystem.Data.Models;
+using CateringSystem.Data.Models.Validators;
 
 namespace CateringSystem
 {
@@ -41,6 +44,7 @@ namespace CateringSystem
             services.AddScoped<IAccountService, AccountService>();
 
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
             services.AddDbContext<CateringDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("myConn"));
