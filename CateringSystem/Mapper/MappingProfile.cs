@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CateringSystem.Data.Entities;
 using CateringSystem.Data.Models;
+using System.Collections.Generic;
 
 namespace CateringSystem.Mapper
 {
@@ -16,6 +17,13 @@ namespace CateringSystem.Mapper
                 .ForMember(x => x.OrderDeliveryStartHour, y => y.MapFrom(z => z.OrdersDelivery.DeliveryStartHour))
                 .ForMember(x => x.OrderDeliveryEndHour, y => y.MapFrom(z => z.OrdersDelivery.DeliveryEndHour))
                 .ForMember(x => x.OrderDeliveryDate, y => y.MapFrom(z => z.OrdersDelivery.DeliveryDate));
+
+            CreateMap<Meal, MealDto>()
+                .ForMember(x => x.RestaurantName, y => y.MapFrom(z => z.Restaurants.CompanyName));
+
+            CreateMap<Menu, MenuDto>();
+
+
         }
     }
 }

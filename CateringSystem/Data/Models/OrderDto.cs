@@ -20,7 +20,6 @@ namespace CateringSystem.Data.Models
         public int OrderDeliveryStartHour { get; set; }
         public int OrderDeliveryEndHour { get; set; }
         public DateTime OrderDeliveryDate { get; set; }
-        //public List<Menu> Menus { get; set; }
 
     }
 }
