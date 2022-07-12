@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CateringSystem.Migrations
 {
     [DbContext(typeof(CateringDbContext))]
-    [Migration("20220711093537_inir")]
-    partial class inir
+    [Migration("20220712102919_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -52,6 +52,13 @@ namespace CateringSystem
                     _dbContext.Restaurants.AddRange(restaurants);
                     _dbContext.SaveChanges();
                 }
+
+                if (!_dbContext.Menus.Any())
+                {
+                    var menus = GetMenus();
+                    _dbContext.Menus.AddRange(menus);
+                    _dbContext.SaveChanges();
+                }
             }
         }
 
@@ -66,215 +73,14 @@ namespace CateringSystem
                     Email = "fittobe@gmail.com",
                     PhoneNumber = "164378532",
                     UrlAddress = "fittobe.pl",
-                    Meals = new List<Meal>()
-                    {
-                        new Meal()
-                        {
-                            Name = "Banana Bread",
-                            WayOfGiving = "cold",
-                            Description = "Oat banana bread with pomegranate and Greek yogurt",
-                            Price = 7.00M,
-                            Menus = new List<Menu>()
-                            {
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 1,
-                                },
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 2,
-                                }
-                            }
-                        },
-                        new Meal()
-                        {
-                            Name = "Lithuanian soup",
-                            WayOfGiving = "cold",
-                            Description = "Lithuanian cold soup with egg and wasa bread",
-                            Price = 6.50M,
-                            Menus = new List<Menu>()
-                            {
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 1,
-                                },
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 2,
-                                }
-                            }
-                        },
-                        new Meal()
-                        {
-                            Name = "Turkey leg",
-                            WayOfGiving = "hot",
-                            Description = "Turkey leg in bbq sauce with quinoa and broccoli",
-                            Price = 29.00M,
-                            Menus = new List<Menu>()
-                            {
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 1,
-                                },                                
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 2,
-                                }
-                            }
-                        },
-                        new Meal()
-                        {
-                            Name = "Vegetable salad with a chicken",
-                            WayOfGiving = "cold",
-                            Description = "Vegetable salad with a leg of chicken",
-                            Price = 14.00M,
-                            Menus = new List<Menu>()
-                            {
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 1,
-                                },                                
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 2,
-                                }
-                            }
-                        }
-                        ,new Meal()
-                        {
-                            Name = "Wrap with chicken and vegetables",
-                            WayOfGiving = "hot",
-                            Description = "Whole wheat wrap with chicken, colorful cabbage salad, and garlic sauce",
-                            Price = 13.50M,
-                            Menus = new List<Menu>()
-                            {
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 1,
-                                },                                
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 2,
-                                }
-
-                            }
-                        }
-                        ,new Meal()
-                        {
-                            Name = "Chocolate-apple risotto",
-                            WayOfGiving = "cold",
-                            Description = null,
-                            Price = 6.00M,
-                            Menus = new List<Menu>()
-                            {
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 1,
-                                },                                
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 2,
-                                }
-                            }
-                        }
-                        ,new Meal()
-                        {
-                            Name = "Egg omelette",
-                            WayOfGiving = "hot",
-                            Description = "Egg omelette from the oven with stewed leek, parsley and pumpernickel",
-                            Price = 10.00M,
-                            Menus = new List<Menu>()
-                            {
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 1,
-                                },                                
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 2,
-                                }
-                            }
-                        }
-                        ,new Meal()
-                        {
-                            Name = "Poultry strogon",
-                            WayOfGiving = "hot",
-                            Description = "Poultry strogon with pickled cucumber and pearl barley",
-                            Price = 17.00M,
-                            Menus = new List<Menu>()
-                            {
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 1,
-                                },
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 2,
-                                }
-                            }
-                        }
-                        ,new Meal()
-                        {
-                            Name = "Mediterranean salad",
-                            WayOfGiving = "cold",
-                            Description = "Mediterranean salad with spicy grilled pork neck",
-                            Price = 12.00M,
-                            Menus = new List<Menu>()
-                            {
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 1,
-                                },                                
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 2,
-                                }
-                            }
-                        }
-                        ,new Meal()
-                        {
-                            Name = "Baked potatoes with guacamole",
-                            WayOfGiving = "hot",
-                            Description = "Baked sweet potatoes with chickpeas, cauliflower, and guacamole",
-                            Price = 12.00M,
-                            Menus = new List<Menu>()
-                            {
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 1,
-                                },
-                                new Menu()
-                                {
-                                    MenuTypeId = 1,
-                                    OrderId = 2,
-                                }
-                            }
-
-                        },
-                    },
-
-                   
-                   
-
+                },
+                new Restaurant()
+                {
+                    NIP= 478234967,
+                    CompanyName = "KotEring",
+                    Email = "kotering@gmail.com",
+                    PhoneNumber = "88829572",
+                    UrlAddress = "kotering.pl",
                 },
 
             };
@@ -361,12 +167,12 @@ namespace CateringSystem
                 new DeliveryMan()
                 {
                     CompanyName = "Inpost",
-                    PhoneNumber = 333999222,
+                    PhoneNumber = 555888333,
                 },
                 new DeliveryMan()
                 {
                     CompanyName = "globKurier",
-                    PhoneNumber = 333999222,
+                    PhoneNumber = 222777444,
                 },
             };
         }
@@ -430,6 +236,110 @@ namespace CateringSystem
             return users;
         }
 
+        private List<Menu> GetMenus()
+        {
+            var menus = new List<Menu>()
+            {
+                new Menu()
+                {
+                    MenuTypeId = 1,
+                    OrderId = 1,
+                    Meals = new List<Meal>()
+                    {
+                        new Meal()
+                        {
+                            Name = "Banana Bread",
+                            WayOfGiving = "cold",
+                            Description = "Oat banana bread with pomegranate and Greek yogurt",
+                            Price = 7.00M,
+                            RestaurantsId = 1,
+                        },
+                        new Meal()
+                        {
+                            Name = "Lithuanian soup",
+                            WayOfGiving = "cold",
+                            Description = "Lithuanian cold soup with egg and wasa bread",
+                            Price = 6.50M,
+                            RestaurantsId = 1,
+                        },
+                        new Meal()
+                        {
+                            Name = "Turkey leg",
+                            WayOfGiving = "hot",
+                            Description = "Turkey leg in bbq sauce with quinoa and broccoli",
+                            Price = 29.00M,
+                            RestaurantsId = 1,
+                        },
+                        new Meal()
+                        {
+                            Name = "Vegetable salad with a chicken",
+                            WayOfGiving = "cold",
+                            Description = "Vegetable salad with a leg of chicken",
+                            Price = 14.00M,
+                            RestaurantsId = 1,
+                        }
+                        ,new Meal()
+                        {
+                            Name = "Wrap with chicken and vegetables",
+                            WayOfGiving = "hot",
+                            Description = "Whole wheat wrap with chicken, colorful cabbage salad, and garlic sauce",
+                            Price = 13.50M,
+                            RestaurantsId = 1,
+                        }
+                    }
+                },
+                new Menu()
+                {
+                    MenuTypeId = 1,
+                    OrderId = 2,
+                    Meals = new List<Meal>()
+                    {
+
+                        new Meal()
+                        {
+                            Name = "Chocolate-apple risotto",
+                            WayOfGiving = "cold",
+                            Description = null,
+                            Price = 6.00M,
+                            RestaurantsId = 2,
+                        }
+                        ,new Meal()
+                        {
+                            Name = "Egg omelette",
+                            WayOfGiving = "hot",
+                            Description = "Egg omelette from the oven with stewed leek, parsley and pumpernickel",
+                            Price = 10.00M,
+                            RestaurantsId = 2,
+                        }
+                        ,new Meal()
+                        {
+                            Name = "Poultry strogon",
+                            WayOfGiving = "hot",
+                            Description = "Poultry strogon with pickled cucumber and pearl barley",
+                            Price = 17.00M,
+                            RestaurantsId = 2,
+                        }
+                        ,new Meal()
+                        {
+                            Name = "Mediterranean salad",
+                            WayOfGiving = "cold",
+                            Description = "Mediterranean salad with spicy grilled pork neck",
+                            Price = 12.00M,
+                            RestaurantsId = 2,
+                        }
+                        ,new Meal()
+                        {
+                            Name = "Baked potatoes with guacamole",
+                            WayOfGiving = "hot",
+                            Description = "Baked sweet potatoes with chickpeas, cauliflower, and guacamole",
+                            Price = 12.00M,
+                            RestaurantsId = 2,
+                        },
+                    },
+                }
+            };
+            return menus;
+        }
 
         public static string RandomNameOfOrder()
         {

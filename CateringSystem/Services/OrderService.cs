@@ -73,16 +73,17 @@ namespace CateringSystem.Services
             return result;
         }
 
+        /***
         public int Create(CreateOrderDto dto)
         {
             var order = _mapper.Map<Order>(dto);
 
-
+            order.User = User.Identity.Name;
 
 
 
         }
-
+        ***/
 
         private IQueryable<Order> BasicOrderQuery()
         {
