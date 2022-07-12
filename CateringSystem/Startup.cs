@@ -16,6 +16,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using FluentValidation.AspNetCore;
 using CateringSystem.ServicesInterfaces;
+using Microsoft.AspNetCore.Identity;
+using CateringSystem.Data.Entities;
 
 namespace CateringSystem
 {
@@ -37,6 +39,8 @@ namespace CateringSystem
             services.AddAutoMapper(this.GetType().Assembly);
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IAccountService, AccountService>();
+
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddDbContext<CateringDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("myConn"));

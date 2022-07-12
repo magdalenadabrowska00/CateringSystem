@@ -2,15 +2,18 @@
 using CateringSystem.Data.Entities;
 using CateringSystem.Data.Models;
 using CateringSystem.ServicesInterfaces;
+using Microsoft.AspNetCore.Identity;
 
 namespace CateringSystem.Services
 {
     public class AccountService : IAccountService
     {
         private CateringDbContext _context;
-        public AccountService(CateringDbContext context)
+        private IPasswordHasher<User> _passwordHasher;
+        public AccountService(CateringDbContext context, IPasswordHasher<User> passwordHasher)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
         public void RegisterUser(RegisterUserDto dto)
         {
@@ -27,6 +30,9 @@ namespace CateringSystem.Services
                     Street = dto.Street, 
                     PostalCode = dto.PostalCode},
             };
+
+            var hashedPassword = _passwordHasher.HashPassword(newUser, dto.Password);
+            newUser.PasswordHash = hashedPassword;
 
             _context.Users.Add(newUser);
             _context.SaveChanges();
