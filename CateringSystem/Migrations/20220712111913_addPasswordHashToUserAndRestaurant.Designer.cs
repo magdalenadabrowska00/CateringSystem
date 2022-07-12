@@ -4,14 +4,16 @@ using CateringSystem.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CateringSystem.Migrations
 {
     [DbContext(typeof(CateringDbContext))]
-    partial class CateringDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220712111913_addPasswordHashToUserAndRestaurant")]
+    partial class addPasswordHashToUserAndRestaurant
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

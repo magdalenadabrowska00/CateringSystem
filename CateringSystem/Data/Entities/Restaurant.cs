@@ -13,5 +13,6 @@ namespace CateringSystem.Data.Entities
         //public int AddressId { get; set; }
         //public Address Address { get; set; }
         public List<Meal> Meals { get; set; }
+        public string PasswordHash { get; set; }
     }
 }
