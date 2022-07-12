@@ -21,6 +21,8 @@ using CateringSystem.Data.Entities;
 using FluentValidation;
 using CateringSystem.Data.Models;
 using CateringSystem.Data.Models.Validators;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace CateringSystem
 {
@@ -36,6 +38,28 @@ namespace CateringSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //pobranie informacji z appsetting.json
+            var authenticationSettings = new AuthenticationSettings();
+            Configuration.GetSection("Authentication").Bind(authenticationSettings); //po³¹czenie jednego z drugiego,
+                                                                                     //aby móc pobieraæ dane z pliku
+                                                                                     //json za pomoc¹ propertiesów z klasy
+            services.AddSingleton(authenticationSettings);
+            services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = "Bearer";
+                option.DefaultScheme = "Bearer";
+                option.DefaultChallengeScheme = "Bearer";
+            }).AddJwtBearer(cfg =>
+            {
+                cfg.RequireHttpsMetadata = false;
+                cfg.SaveToken = true;
+                cfg.TokenValidationParameters = new TokenValidationParameters //sprawdzenie czy token jest zgodny z tym co wie server
+                {
+                    ValidIssuer = authenticationSettings.JwtIssuer, //wydawca danego tokenu
+                    ValidAudience = authenticationSettings.JwtIssuer, //kto mo¿e u¿ywaæ tokenu
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authenticationSettings.JwtKey)), //klucz prywatny wygenerowany na podstawie jwtKey z appsetting json
+                };
+            });
 
             services.AddControllers().AddFluentValidation();
             services.AddScoped<CateringSeeder>();
@@ -66,6 +90,8 @@ namespace CateringSystem
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CateringSystem v1"));
             }
+
+            app.UseAuthentication();
 
             app.UseHttpsRedirection();
 
