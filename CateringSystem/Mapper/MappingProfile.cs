@@ -16,7 +16,13 @@ namespace CateringSystem.Mapper
                 .ForMember(x => x.DeliveryManCompanyName, y => y.MapFrom(z => z.DeliveryMen.CompanyName))
                 .ForMember(x => x.OrderDeliveryStartHour, y => y.MapFrom(z => z.OrdersDelivery.DeliveryStartHour))
                 .ForMember(x => x.OrderDeliveryEndHour, y => y.MapFrom(z => z.OrdersDelivery.DeliveryEndHour))
-                .ForMember(x => x.OrderDeliveryDate, y => y.MapFrom(z => z.OrdersDelivery.DeliveryDate));
+                .ForMember(x => x.OrderDeliveryDate, y => y.MapFrom(z => z.OrdersDelivery.DeliveryDate)).ReverseMap();
+
+            CreateMap<Order, CreateOrderDto>()
+                .ForMember(x => x.OrderDeliveryDate, y => y.MapFrom(z => z.OrdersDelivery.DeliveryDate))
+                .ForMember(x => x.OrderDeliveryStartHour, y => y.MapFrom(z => z.OrdersDelivery.DeliveryStartHour))
+                .ForMember(x => x.OrderDeliveryEndHour, y => y.MapFrom(z => z.OrdersDelivery.DeliveryEndHour))
+                .ReverseMap();
 
             CreateMap<Meal, MealDto>()
                 .ForMember(x => x.RestaurantName, y => y.MapFrom(z => z.Restaurants.CompanyName));
