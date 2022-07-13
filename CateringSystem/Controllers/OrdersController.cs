@@ -13,8 +13,14 @@ using CateringSystem.Data.Models;
 
 namespace CateringSystem.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/order")]
     [ApiController]
+    [Authorize] //wszystkie akcje mają miejsce po autoryzacji
+
+    //[AllowAnonymous] //ta konkretna akja nie będzie wymagała autoryzacji
+    //[Authorize(Roles = "Admin")]
+    //[Authorize(Roles = "Manager")]
+    //[Authorize(Roles = "Manager,Admin")]
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService _orderService;

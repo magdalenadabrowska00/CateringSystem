@@ -29,6 +29,8 @@ namespace CateringSystem.Mapper
 
             CreateMap<Menu, MenuDto>();
 
+            CreateMap<Restaurant, RestaurantDto>();
+
 
         }
     }
