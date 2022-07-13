@@ -25,11 +25,13 @@ namespace CateringSystem.Mapper
                 .ReverseMap();
 
             CreateMap<Meal, MealDto>()
-                .ForMember(x => x.RestaurantName, y => y.MapFrom(z => z.Restaurants.CompanyName));
+                .ForMember(x => x.RestaurantName, y => y.MapFrom(z => z.Restaurants.CompanyName)).ReverseMap();
 
-            CreateMap<Menu, MenuDto>();
+            CreateMap<Menu, MenuDto>().ReverseMap();
 
-            CreateMap<Restaurant, RestaurantDto>();
+            CreateMap<Restaurant, RestaurantDto>().ReverseMap();
+
+            CreateMap<Restaurant, CreateRestaurantDto>().ReverseMap();
 
 
         }

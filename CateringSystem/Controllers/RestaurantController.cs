@@ -9,7 +9,7 @@ namespace CateringSystem.Controllers
 {
     [Route("api/restaurant")]
     [ApiController]
-    //[Authorize]
+    //[Authorize]  TO POTEM MA BYC!
     public class RestaurantController : ControllerBase
     {
         private readonly IRestaurantService _restaurantService;
@@ -36,6 +36,12 @@ namespace CateringSystem.Controllers
             return Ok(restaurantList);
         }
 
+        [HttpPost]
+        public ActionResult Post([FromBody] CreateRestaurantDto dto)
+        {
+            var newRestaurantId = _restaurantService.CreateRestaurant(dto);
+            return Created($"api/restaurant/{newRestaurantId}", null);
+        }
 
     }
 }

@@ -29,5 +29,6 @@ namespace CateringSystem.Controllers
             return Ok(result);
         }
 
+        //chyba nie ma sensu dodawać metody pobierz wszystko po prostu
     }
 }

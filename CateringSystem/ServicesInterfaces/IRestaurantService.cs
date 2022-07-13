@@ -7,5 +7,6 @@ namespace CateringSystem.ServicesInterfaces
     {
         RestaurantDto GetById(int id);
         List<RestaurantDto> GetAll();
+        public int CreateRestaurant(CreateRestaurantDto dto);
     }
 }
