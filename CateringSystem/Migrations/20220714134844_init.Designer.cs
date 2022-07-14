@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CateringSystem.Migrations
 {
     [DbContext(typeof(CateringDbContext))]
-    [Migration("20220712111913_addPasswordHashToUserAndRestaurant")]
-    partial class addPasswordHashToUserAndRestaurant
+    [Migration("20220714134844_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
