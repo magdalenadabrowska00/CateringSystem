@@ -46,5 +46,17 @@ namespace CateringSystem.Services
             _dbContext.SaveChanges();
             return restaurantEntity.Id;
         }
+
+        public void Delete(int id)
+        {
+            var restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id == id);
+            if(restaurant == null)
+            {
+                throw new System.Exception($"Restaurant with id {id} doesn't exist.");
+            }
+
+            _dbContext.Restaurants.Remove(restaurant);
+            _dbContext.SaveChanges();
+        }
     }
 }

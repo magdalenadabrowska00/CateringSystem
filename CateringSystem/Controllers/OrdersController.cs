@@ -15,7 +15,7 @@ namespace CateringSystem.Controllers
 {
     [Route("api/order")]
     [ApiController]
-    [Authorize] //wszystkie akcje mają miejsce po autoryzacji
+    //[Authorize] //wszystkie akcje mają miejsce po autoryzacji
 
     //[AllowAnonymous] //ta konkretna akja nie będzie wymagała autoryzacji
     //[Authorize(Roles = "Admin")]
