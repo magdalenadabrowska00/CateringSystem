@@ -40,7 +40,6 @@ namespace CateringSystem.Controllers
         [Authorize(Roles = "Admin,Restaurant manager")] 
         public ActionResult Post([FromBody] CreateRestaurantDto dto)
         {
-            //HttpContext.User.IsInRole("Admin")
             var newRestaurantId = _restaurantService.CreateRestaurant(dto);
             return Created($"api/restaurant/{newRestaurantId}", null);
         }
