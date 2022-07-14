@@ -8,7 +8,7 @@ namespace CateringSystem.ServicesInterfaces
         RestaurantDto GetById(int id);
         List<RestaurantDto> GetAll();
         int CreateRestaurant(CreateRestaurantDto dto);
-        //void Update(); 
+        void Update(UpdateRestaurantDto dto, int id); 
         void Delete(int id);
     }
 }

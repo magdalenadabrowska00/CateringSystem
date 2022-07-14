@@ -33,6 +33,8 @@ namespace CateringSystem.Mapper
 
             CreateMap<Restaurant, CreateRestaurantDto>().ReverseMap();
 
+            CreateMap<Restaurant, UpdateRestaurantDto>().ReverseMap();
+
 
         }
     }

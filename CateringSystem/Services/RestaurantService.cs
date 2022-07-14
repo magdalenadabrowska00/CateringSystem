@@ -58,5 +58,21 @@ namespace CateringSystem.Services
             _dbContext.Restaurants.Remove(restaurant);
             _dbContext.SaveChanges();
         }
+
+        public void Update(UpdateRestaurantDto dto, int id)
+        {
+            var restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id == id);
+
+            if(restaurant is null)
+            {
+                throw new System.Exception($"Restaurant with id {id} doesn't exist.");
+            }
+
+            restaurant.UrlAddress = dto.UrlAddress;
+            restaurant.NIP = dto.NIP;
+            restaurant.PhoneNumber = dto.PhoneNumber;
+
+            _dbContext.SaveChanges();
+        }
     }
 }

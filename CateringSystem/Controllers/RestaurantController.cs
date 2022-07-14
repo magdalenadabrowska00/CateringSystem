@@ -52,6 +52,14 @@ namespace CateringSystem.Controllers
             return NoContent();
         }
 
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Restaurant manager,")]
+        public ActionResult Update(int id, [FromBody] UpdateRestaurantDto dto)
+        {
+            _restaurantService.Update(dto, id);
+            return Ok();
+        }
+
     }
 }
 /***
