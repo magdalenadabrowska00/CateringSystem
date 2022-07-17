@@ -16,6 +16,7 @@ using CateringSystem.Data.Models;
 using CateringSystem.Data.Models.Validators;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using CateringSystem.Middleware;
 
 namespace CateringSystem
 {
@@ -61,7 +62,7 @@ namespace CateringSystem
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddScoped<IMealService, MealService>();
-
+            services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
             services.AddDbContext<CateringDbContext>(options =>
@@ -85,6 +86,8 @@ namespace CateringSystem
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CateringSystem v1"));
             }
+
+            app.UseMiddleware<ErrorHandlingMiddleware>();
 
             app.UseAuthentication();
 
