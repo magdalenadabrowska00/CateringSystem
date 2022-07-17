@@ -2,6 +2,7 @@
 using CateringSystem.Data;
 using CateringSystem.Data.Entities;
 using CateringSystem.Data.Models;
+using CateringSystem.Exceptions;
 using CateringSystem.ServicesInterfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -26,7 +27,7 @@ namespace CateringSystem.Services
             var restaurant = GetRestaurant().FirstOrDefault(x => x.Id == restaurantId);
             if(restaurant == null)
             {
-                throw new Exception("There isn't such restaurant.");
+                throw new NotFoundException("There isn't such restaurant.");
             }
 
             var mealEntity = _mapper.Map<Meal>(dto);
@@ -43,14 +44,14 @@ namespace CateringSystem.Services
 
             if (restaurant == null)
             {
-                throw new Exception("There isn't such restaurant.");
+                throw new NotFoundException("There isn't such restaurant.");
             }
 
             var meal = restaurant.Meals.FirstOrDefault(x=>x.Id == mealId);
 
             if (meal == null)
             {
-                throw new Exception($"There isn't such meal for restaurant with id:{restaurantId}.");
+                throw new NotFoundException($"There isn't such meal for restaurant with id:{restaurantId}.");
             }
 
             var mealDto = _mapper.Map<MealDto>(meal);
@@ -65,7 +66,7 @@ namespace CateringSystem.Services
 
             if (restaurant == null)
             {
-                throw new Exception("There isn't such restaurant.");
+                throw new NotFoundException("There isn't such restaurant.");
             }
 
             var mealsFromRestaurant = restaurant.Meals;

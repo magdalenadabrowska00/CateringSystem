@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
+using CateringSystem.Exceptions;
 
 namespace CateringSystem.Services
 {
@@ -57,14 +58,14 @@ namespace CateringSystem.Services
                 .FirstOrDefault(x => x.Email == dto.Email);
             if(user == null)
             {
-                throw new Exception("Invalid user name or password.");
+                throw new BadRequestException("Invalid user name or password.");
             }
 
             var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
 
             if(result == PasswordVerificationResult.Failed)
             {
-                throw new Exception("Invalid user name or password.");
+                throw new BadRequestException("Invalid user name or password.");
             }
 
             var claims = new List<Claim>()

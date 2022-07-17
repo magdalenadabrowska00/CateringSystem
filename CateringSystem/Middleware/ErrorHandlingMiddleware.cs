@@ -5,16 +5,10 @@ using System.Threading.Tasks;
 
 namespace CateringSystem.Middleware
 {
-    public class ErrorHandlingMiddleware
+    public class ErrorHandlingMiddleware: IMiddleware
     {
-        private readonly RequestDelegate _next;
 
-        public ErrorHandlingMiddleware(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public async Task Invoke(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, RequestDelegate _next)
         {
             try
             {
@@ -23,14 +17,17 @@ namespace CateringSystem.Middleware
             catch(BadRequestException badRequestExc)
             {
                 context.Response.StatusCode = 400;
+                await context.Response.WriteAsync(badRequestExc.Message);
             }
             catch(ForbidException forbidExc)
             {
                 context.Response.StatusCode = 403;
+                await context.Response.WriteAsync(forbidExc.Message);
             }
             catch(NotFoundException notFoundExc)
             {
                 context.Response.StatusCode = 404;
+                await context.Response.WriteAsync(notFoundExc.Message);
             }
             catch(Exception ex)
             {

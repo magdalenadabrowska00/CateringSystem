@@ -2,6 +2,7 @@
 using CateringSystem.Data;
 using CateringSystem.Data.Entities;
 using CateringSystem.Data.Models;
+using CateringSystem.Exceptions;
 using CateringSystem.ServicesInterfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +32,7 @@ namespace CateringSystem.Services
             var restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id == id);
             if(restaurant == null)
             {
-                throw new System.Exception("There isn't such restaurant.");
+                throw new NotFoundException("There isn't such restaurant.");
             }
 
             var result = _mapper.Map<RestaurantDto>(restaurant);
@@ -52,7 +53,7 @@ namespace CateringSystem.Services
             var restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id == id);
             if(restaurant == null)
             {
-                throw new System.Exception($"Restaurant with id {id} doesn't exist.");
+                throw new NotFoundException($"Restaurant with id {id} doesn't exist.");
             }
 
             _dbContext.Restaurants.Remove(restaurant);
@@ -65,7 +66,7 @@ namespace CateringSystem.Services
 
             if(restaurant is null)
             {
-                throw new System.Exception($"Restaurant with id {id} doesn't exist.");
+                throw new NotFoundException($"Restaurant with id {id} doesn't exist.");
             }
 
             restaurant.UrlAddress = dto.UrlAddress;
