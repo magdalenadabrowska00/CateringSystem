@@ -29,6 +29,13 @@ namespace CateringSystem.Controllers
             return Ok(result);
         }
 
-        //chyba nie ma sensu dodawać metody pobierz wszystko po prostu
+        [HttpGet("{mealId}")]
+        public ActionResult<MealDto> GetMeal([FromRoute] int restaurantId, [FromRoute] int mealId)
+        {
+            var meal = _mealService.GetMeal(restaurantId, mealId);
+            return meal;
+        }
+
+        //chyba nie ma sensu dodawać metody pobierz wszystko po prostu bez id restauracji
     }
 }

@@ -8,9 +8,9 @@ namespace CateringSystem.ServicesInterfaces
     public interface IMealService
     {
         List<MealDto> GetAllMeals(int restaurantId); //pobrać wszystkie dania z restauracji, 
-        
-        
-        
+
+        MealDto GetMeal(int restaurantId, int mealId);
+
         //to będzie w menu servisie!
         //List<MealDto> GetAllMealsPerWeek(Restaurant restaurantName, DateTime startDate, DateTime endDate);// pobrac wszystkie dania z restauracji na dany tydzien
         // wstawić tez do bazy po 5 dan na caly tydzien

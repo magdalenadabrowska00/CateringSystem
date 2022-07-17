@@ -21,6 +21,28 @@ namespace CateringSystem.Services
             _mapper = mapper;
         }
 
+        public MealDto GetMeal(int restaurantId, int mealId)
+        {
+            var restaurant = GetRestaurant().FirstOrDefault(x => x.Id == restaurantId);
+
+            if (restaurant == null)
+            {
+                throw new Exception("There isn't such restaurant.");
+            }
+
+            var meal = restaurant.Meals.FirstOrDefault(x=>x.Id == mealId);
+
+            if (meal == null)
+            {
+                throw new Exception($"There isn't such meal for restaurant with id:{restaurantId}.");
+            }
+
+            var mealDto = _mapper.Map<MealDto>(meal);
+
+            return mealDto;
+
+        }
+
         public List<MealDto> GetAllMeals(int restaurantId)
         {
             var restaurant = GetRestaurant().FirstOrDefault(x=>x.Id == restaurantId);
