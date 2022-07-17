@@ -36,6 +36,14 @@ namespace CateringSystem.Controllers
             return meal;
         }
 
+        [HttpPost]
+        public ActionResult Post([FromRoute] int restaurantId, [FromBody] CreateMealDto dto)
+        {
+            var newMealId = _mealService.Create(restaurantId, dto);
+
+            return Created($"api/restaurant/{restaurantId}/meal/{newMealId}", null);
+        }
+
         //chyba nie ma sensu dodawać metody pobierz wszystko po prostu bez id restauracji
     }
 }
