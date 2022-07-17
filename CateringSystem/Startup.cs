@@ -17,6 +17,7 @@ using CateringSystem.Data.Models.Validators;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using CateringSystem.Middleware;
+using Newtonsoft.Json.Serialization;
 
 namespace CateringSystem
 {
@@ -32,6 +33,15 @@ namespace CateringSystem
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(c =>
+            {
+               c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
+
+            services.AddControllersWithViews().AddNewtonsoftJson(options => 
+            options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
+                .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+
             //pobranie informacji z appsetting.json
             var authenticationSettings = new AuthenticationSettings();
             Configuration.GetSection("Authentication").Bind(authenticationSettings); //po³¹czenie jednego z drugiego,
@@ -70,15 +80,17 @@ namespace CateringSystem
                 options.UseSqlServer(Configuration.GetConnectionString("myConn"));
             });
             //services.AddHttpContextAccessor();
+         
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CateringSystem", Version = "v1" });
-            });
+            }); 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, CateringSeeder seeder)
         {
+            app.UseCors(options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             seeder.Seed();
             if (env.IsDevelopment())
             {
