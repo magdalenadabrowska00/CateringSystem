@@ -8,9 +8,10 @@ namespace CateringSystem.ServicesInterfaces
     public interface IMealService
     {
         List<MealDto> GetAllMeals(int restaurantId); //pobrać wszystkie dania z restauracji, 
-
+        void Update(int restaurantId, int mealId, UpdateMealDto dto);
         MealDto GetMeal(int restaurantId, int mealId);
         int Create(int restaurantId, CreateMealDto dto);
+        void Delete(int restaurantId, int mealId);
 
 
         //to będzie w menu servisie!

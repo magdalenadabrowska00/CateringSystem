@@ -29,6 +29,8 @@ namespace CateringSystem.Mapper
 
             CreateMap<Meal, CreateMealDto>().ReverseMap();
 
+            CreateMap<Meal, UpdateMealDto>().ReverseMap();
+
             CreateMap<Menu, MenuDto>().ReverseMap();
 
             CreateMap<Restaurant, RestaurantDto>().ReverseMap();

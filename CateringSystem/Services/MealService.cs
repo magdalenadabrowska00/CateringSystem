@@ -22,6 +22,47 @@ namespace CateringSystem.Services
             _mapper = mapper;
         }
 
+        public void Delete(int restaurantId, int mealId)
+        {
+            var restaurant = GetRestaurant().FirstOrDefault(x => x.Id == restaurantId);
+            if (restaurant == null)
+            {
+                throw new NotFoundException("There isn't such restaurant.");
+            }
+
+            var meal = restaurant.Meals.FirstOrDefault(x => x.Id == mealId);
+
+            if (meal == null)
+            {
+                throw new NotFoundException($"There isn't such meal for restaurant with id:{restaurantId}.");
+            }
+
+            _dbContext.Meals.Remove(meal);
+            _dbContext.SaveChanges();
+        }
+        public void Update(int restaurantId, int mealId, UpdateMealDto dto)
+        {
+            var restaurant = GetRestaurant().FirstOrDefault(x => x.Id == restaurantId);
+            if (restaurant == null)
+            {
+                throw new NotFoundException("There isn't such restaurant.");
+            }
+
+            var meal = restaurant.Meals.FirstOrDefault(x => x.Id == mealId);
+
+            if (meal == null)
+            {
+                throw new NotFoundException($"There isn't such meal for restaurant with id:{restaurantId}.");
+            }
+
+            meal.Price = dto.Price;
+            meal.Description = dto.Description;
+            meal.Name = dto.Name;
+            meal.WayOfGiving = dto.WayOfGiving;
+
+            _dbContext.SaveChanges();   
+
+        }
         public int Create(int restaurantId, CreateMealDto dto)
         {
             var restaurant = GetRestaurant().FirstOrDefault(x => x.Id == restaurantId);
