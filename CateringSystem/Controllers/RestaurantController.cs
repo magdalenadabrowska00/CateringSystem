@@ -53,7 +53,7 @@ namespace CateringSystem.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin,Restaurant manager,")]
+        [Authorize(Roles = "Admin,Restaurant manager")]
         public ActionResult Update(int id, [FromBody] UpdateRestaurantDto dto)
         {
             _restaurantService.Update(dto, id);

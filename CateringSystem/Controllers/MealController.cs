@@ -9,7 +9,7 @@ namespace CateringSystem.Controllers
 {
     [Route("api/restaurant/{restaurantId}/meal")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class MealController : ControllerBase
     {
         private readonly IMealService _mealService;
@@ -30,6 +30,7 @@ namespace CateringSystem.Controllers
         }
 
         [HttpGet("{mealId}")]
+        [AllowAnonymous]
         public ActionResult<MealDto> GetMeal([FromRoute] int restaurantId, [FromRoute] int mealId)
         {
             var meal = _mealService.GetMeal(restaurantId, mealId);
@@ -37,6 +38,7 @@ namespace CateringSystem.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,Restaurant manager")]
         public ActionResult Post([FromRoute] int restaurantId, [FromBody] CreateMealDto dto)
         {
             var newMealId = _mealService.Create(restaurantId, dto);
@@ -45,6 +47,7 @@ namespace CateringSystem.Controllers
         }
 
         [HttpPut("{mealId}")]
+        [Authorize(Roles = "Admin,Restaurant manager")]
         public ActionResult Edit([FromRoute] int restaurantId,[FromRoute] int mealId, [FromBody] UpdateMealDto dto)
         {
             _mealService.Update(restaurantId, mealId, dto);
@@ -52,6 +55,7 @@ namespace CateringSystem.Controllers
         }
 
         [HttpDelete("{mealId}")]
+        [Authorize(Roles = "Admin,Restaurant manager")]
         public ActionResult Remove([FromRoute] int restaurantId, [FromRoute] int mealId)
         {
             _mealService.Delete(restaurantId, mealId);
