@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CateringSystem.Data.Entities
 {
@@ -6,6 +7,7 @@ namespace CateringSystem.Data.Entities
     {
         public int Id { get; set; }
         public int MenuTypeId { get; set; }
+        public DateTime Date { get; set; } //dzień w którym będzie to menu czyli 5 posiłków na przykład
         public virtual MenuType MenuType { get; set; }
         public List<Meal> Meals { get; set; } 
         public int OrderId { get; set; }

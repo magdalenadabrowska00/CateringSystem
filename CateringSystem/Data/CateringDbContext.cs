@@ -120,6 +120,12 @@ namespace CateringSystem.Data
                 .Property(x => x.AddressId).IsRequired();
             modelBuilder.Entity<User>()
                 .Property(x => x.RoleId).IsRequired();
+
+            modelBuilder.Entity<Menu>()
+                .Property(x => x.Date).IsRequired();
+            modelBuilder.Entity<Menu>()
+                .Property(x => x.OrderId).HasDefaultValueSql("0");
+                //.IsRequired(false);
         }
     }
 }
