@@ -10,6 +10,6 @@ namespace CateringSystem.Data.Models
         public string MenuTypeName { get; set; }
         public string RestaurantName { get; set; }
         public DateTime Date { get; set; }
-        public List<MealDto> Meals { get; set; }
+        public List<MealDtoForMenu> Meals { get; set; }
     }
 }

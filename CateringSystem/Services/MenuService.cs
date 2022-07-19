@@ -24,7 +24,9 @@ namespace CateringSystem.Services
 
         public List<MenuDto> GetAll()
         {
-            var menus = _dbContext.Menus.Include(x => x.Meals);
+            var menus = _dbContext.Menus
+                .Include(x => x.Meals)
+                .Include(x => x.MenuType);
             
             var menusDto = _mapper.Map<List<MenuDto>>(menus);
             return menusDto;
