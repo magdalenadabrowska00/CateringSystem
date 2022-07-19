@@ -29,8 +29,54 @@ namespace CateringSystem.Services
                 .Include(x => x.MenuType);
             
             var menusDto = _mapper.Map<List<MenuDto>>(menus);
+
+            var meals = _dbContext.Meals.ToList();
+            var menumeal = _dbContext.MenuMeals.ToList();
+
+            var connection = meals.Join(menumeal,
+                x => x.Id,
+                y => y.MealId,
+                (x, y) => new { Group = y.MenuId, PriceForOneMenu = x.Price });
+
+            var groupedConn = connection
+                .GroupBy(x => x.Group)
+                .Select(t => new
+                {
+                    MenuId = t.Key,
+                    SumPriceFOrOneDayMenu = t.Sum(x => x.PriceForOneMenu),
+                }).ToList();
+
+            foreach (var menu in menusDto)
+            {
+                if(groupedConn.Any(x=>x.MenuId == menu.Id))
+                {
+                    menu.TotalPriceForOneDay = groupedConn.Where(x=>x.MenuId == menu.Id).Select(x=>x.SumPriceFOrOneDayMenu).Sum();
+                }
+            }
+
             return menusDto;
 
+        }
+
+        public void PriceMenuForDay()
+        {
+            var menus = _dbContext.Menus.ToList();
+            var meals = _dbContext.Meals.ToList();
+            var menumeal = _dbContext.MenuMeals.ToList();
+
+            var connection = meals.Join(menumeal, 
+                x => x.Id, 
+                y => y.MealId,
+                (x,y) => new {Group = y.MenuId, PriceForOneMenu = x.Price});
+
+            var groupedConn = connection
+                .GroupBy(x => x.Group)
+                .Select(t => new
+                {
+                    Id = t.Key,
+                    SumPriceFOrOneDayMenu = t.Sum(x=>x.PriceForOneMenu),
+                }).ToList();
+            
         }
 
         private IQueryable<Restaurant> GetRestaurant()
