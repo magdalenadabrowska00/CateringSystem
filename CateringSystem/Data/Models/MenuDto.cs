@@ -1,4 +1,5 @@
 ﻿using CateringSystem.Data.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace CateringSystem.Data.Models
@@ -6,6 +7,9 @@ namespace CateringSystem.Data.Models
     public class MenuDto
     {
         public int Id { get; set; }
-       // public List<Meal> Meals { get; set; }
+        public string MenuTypeName { get; set; }
+        public string RestaurantName { get; set; }
+        public DateTime Date { get; set; }
+        public List<MealDto> Meals { get; set; }
     }
 }

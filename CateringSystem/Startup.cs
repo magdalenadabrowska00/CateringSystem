@@ -73,6 +73,7 @@ namespace CateringSystem
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddScoped<IMealService, MealService>();
+            services.AddScoped<IMenuService, MenuService>();
             services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
