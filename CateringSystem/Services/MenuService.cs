@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 
 namespace CateringSystem.Services
 {
@@ -30,37 +31,26 @@ namespace CateringSystem.Services
             
             var menusDto = _mapper.Map<List<MenuDto>>(menus);
 
-            var meals = _dbContext.Meals.ToList();
-            var menumeal = _dbContext.MenuMeals.ToList();
-
-            var connection = meals.Join(menumeal,
-                x => x.Id,
-                y => y.MealId,
-                (x, y) => new { Group = y.MenuId, PriceForOneMenu = x.Price });
-
-            var groupedConn = connection
-                .GroupBy(x => x.Group)
-                .Select(t => new
-                {
-                    MenuId = t.Key,
-                    SumPriceFOrOneDayMenu = t.Sum(x => x.PriceForOneMenu),
-                }).ToList();
-
+            object refObj = PriceMenuForDay();
+            var obj = CastTo(refObj, new[] { new { Id = 0, SumPriceFOrOneDayMenu = 0M }}.ToList());
             foreach (var menu in menusDto)
-            {
-                if(groupedConn.Any(x=>x.MenuId == menu.Id))
+            { 
+                if(obj.Any(x=>x.Id == menu.Id))
                 {
-                    menu.TotalPriceForOneDay = groupedConn.Where(x=>x.MenuId == menu.Id).Select(x=>x.SumPriceFOrOneDayMenu).Sum();
+                    menu.TotalPriceForOneDay = obj.Where(x=>x.Id == menu.Id).Select(x=>x.SumPriceFOrOneDayMenu).Sum();
                 }
             }
 
             return menusDto;
 
         }
-
-        public void PriceMenuForDay()
+        private static T CastTo<T>(object value, T targetType)
         {
-            var menus = _dbContext.Menus.ToList();
+            return (T)value;
+        }
+
+        object PriceMenuForDay()
+        {
             var meals = _dbContext.Meals.ToList();
             var menumeal = _dbContext.MenuMeals.ToList();
 
@@ -74,8 +64,10 @@ namespace CateringSystem.Services
                 .Select(t => new
                 {
                     Id = t.Key,
-                    SumPriceFOrOneDayMenu = t.Sum(x=>x.PriceForOneMenu),
+                    SumPriceFOrOneDayMenu = t.Sum(x => x.PriceForOneMenu),
                 }).ToList();
+
+            return groupedConn;
             
         }
 
