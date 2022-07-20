@@ -23,10 +23,11 @@ namespace CateringSystem.Services
             _mapper = mapper;
         }
 
+        /***
         public List<MenuDto> GetAll()
         {
             var menus = _dbContext.Menus
-                .Include(x => x.Meals)
+                .Include(x => x.Meals).ThenInclude(x => x.Restaurants)
                 .Include(x => x.MenuType);
             
             var menusDto = _mapper.Map<List<MenuDto>>(menus);
@@ -70,13 +71,59 @@ namespace CateringSystem.Services
             return groupedConn;
             
         }
+        ***/
 
-        private IQueryable<Restaurant> GetRestaurant()
+
+        public List<MenuDto> GetAllFromRestaurant(int restaurantId)
         {
-            var restaurant = _dbContext.Restaurants
-                .Include(x => x.Meals);
+            var restaurant = _dbContext.Restaurants.FirstOrDefault(x=>x.Id == restaurantId);
+            
+            if (restaurant == null)
+            {
+                throw new NotFoundException("There isn't such restaurant.");
+            }
+            var restaurantName = restaurant.CompanyName;
 
-            return restaurant;
+            var meals = _dbContext.Meals.Where(x => x.RestaurantsId == restaurant.Id).ToList();
+
+            var mealsMenus = _dbContext.MenuMeals.ToList();
+
+            var mealsWithMenuId = meals.Join(mealsMenus,
+                x => x.Id,
+                y => y.MealId,
+                (x, y) => new { x.Price, y.MenuId });
+
+
+            var groupedConn = mealsWithMenuId
+                .GroupBy(x => x.MenuId)
+                .Select(t => new
+                {
+                    Id = t.Key,
+                    SumPriceFOrOneDayMenu = t.Sum(x => x.Price),
+                }).ToList();
+
+            var menus = _dbContext.Menus
+                .Include(x => x.Meals).ThenInclude(x => x.Restaurants)
+                .Include(x => x.MenuType);
+
+            var menusDto = _mapper.Map<List<MenuDto>>(menus);
+
+            foreach (var group in groupedConn)
+            {
+                foreach (var menu in menusDto)
+                {
+                    if (group.Id == menu.Id)
+                    {
+                        menu.RestaurantName = restaurantName;
+                        menu.TotalPriceForOneDay = groupedConn.Where(x => x.Id == menu.Id).Select(x => x.SumPriceFOrOneDayMenu).Sum(); 
+                    }                
+                }
+            }
+            var menusDtoWithoutRestaurant = menusDto.Where(x => x.RestaurantName is null);
+
+            var result = menusDto.Except(menusDtoWithoutRestaurant).ToList();
+            return result;
+
         }
     }
 }

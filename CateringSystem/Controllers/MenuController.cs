@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace CateringSystem.Controllers
 {
-    [Route("api/menu")]
+    [Route("api/restaurant/{restaurantId}/menu")]
     [ApiController]
     public class MenuController : ControllerBase
     {
@@ -19,9 +19,9 @@ namespace CateringSystem.Controllers
         }
       
         [HttpGet]
-        public ActionResult<List<MenuDto>> GetAll()
+        public ActionResult<List<MenuDto>> GetAll([FromRoute] int restaurantId)
         {
-            var result = _menuService.GetAll();
+            var result = _menuService.GetAllFromRestaurant(restaurantId);//_menuService.GetAll();
             return Ok(result);
         }
         
