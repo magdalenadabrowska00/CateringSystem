@@ -125,5 +125,54 @@ namespace CateringSystem.Services
             return result;
 
         }
+
+
+        public MenuDto GetMenuFromrestaurant(int restaurantId, int menuId)
+        {
+            
+            var restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id == restaurantId);
+
+            if (restaurant == null)
+            {
+                throw new NotFoundException("There isn't such restaurant.");
+            }
+            var restaurantName = restaurant.CompanyName;
+
+            var meals = _dbContext.Meals.Where(x => x.RestaurantsId == restaurant.Id).ToList();
+
+            var mealsMenus = _dbContext.MenuMeals.Where(x => x.MenuId == menuId).ToList();
+
+            var mealsWithMenuId = meals.Join(mealsMenus,
+                x => x.Id,
+                y => y.MealId,
+                (x, y) => new { x.Price, y.MenuId });
+
+
+            var groupedConn = mealsWithMenuId
+                .GroupBy(x => x.MenuId)
+                .Select(t => new
+                {
+                    Id = t.Key,
+                    SumPriceFOrOneDayMenu = t.Sum(x => x.Price),
+                }).ToList();
+
+            if(!groupedConn.Any() || groupedConn.Count == 0)  
+            {
+                throw new NotFoundException("The restaurant and menu doesn't match.");
+            }
+
+            var menu = _dbContext.Menus
+                .Include(x => x.Meals).ThenInclude(x => x.Restaurants)
+                .Include(x => x.MenuType)
+                .FirstOrDefault(x=>x.Id == menuId);
+
+
+            var menuDto = _mapper.Map<MenuDto>(menu);
+
+            menuDto.RestaurantName = restaurantName;
+            menuDto.TotalPriceForOneDay = groupedConn.Where(x => x.Id == menuId).Select(x => x.SumPriceFOrOneDayMenu).Sum();
+               
+            return menuDto;
+        }
     }
 }

@@ -25,7 +25,12 @@ namespace CateringSystem.Controllers
             return Ok(result);
         }
         
-
+        [HttpGet("{menuId}")]
+        public ActionResult<MenuDto> GetMenuFromRestaurant([FromRoute] int restaurantId, [FromRoute] int menuId)
+        {
+            var result = _menuService.GetMenuFromrestaurant(restaurantId, menuId);
+            return Ok(result);
+        }
         
     }
 }
