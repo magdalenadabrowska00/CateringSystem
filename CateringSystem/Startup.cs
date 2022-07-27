@@ -81,7 +81,7 @@ namespace CateringSystem
             {
                 options.UseSqlServer(Configuration.GetConnectionString("myConn"));
             });
-            //services.AddHttpContextAccessor();
+            services.AddHttpContextAccessor();
          
             services.AddSwaggerGen(c =>
             {
