@@ -14,6 +14,7 @@ namespace CateringSystem.Services
     {
         private readonly CateringDbContext _dbContext;
         private readonly IMapper _mapper;
+        private MenuService _menuService;
 
         public OrderService(CateringDbContext dbContext, IMapper mapper)
         {
@@ -73,17 +74,38 @@ namespace CateringSystem.Services
             return result;
         }
 
-        /***
-        public int Create(CreateOrderDto dto)
+        
+        public int Create(CreateOrderDto dto, int restaurantId, int menuId)
         {
             var order = _mapper.Map<Order>(dto);
+            //order.User = User.Identity.Name;
 
-            order.User = User.Identity.Name;
+            var menusList = _menuService.GetMenuFromrestaurant(restaurantId, menuId);
+            var order1 = _dbContext.Orders
+                .Include(x => x.OrdersDelivery)
+                .Include(x => x.Menus)
+                .Include(x => x.DeliveryMen)
+                .Include(x => x.User) //??
+                .Select(x => new
+                {
+                    x.Id,
+                    x.Name,
+                    x.OrderDate,
+                    x.DeliveryDate,
+                    x.DeliveryCity,
+                    x.DeliveryAddress,
+                    x.DeliveryPostalCode,
+                    x.UserId,
+                    x.DeliveryMenId,
+                    x.OrderDeliveryId,
+                    Menus = menusList
+                });
 
 
+            return 0;
 
         }
-        ***/
+       
 
         private IQueryable<Order> BasicOrderQuery()
         {
@@ -91,7 +113,8 @@ namespace CateringSystem.Services
                 .Orders
                 .Include(x => x.User)
                 .Include(x => x.DeliveryMen)
-                .Include(x => x.OrdersDelivery);
+                .Include(x => x.OrdersDelivery)
+                .Include(x => x.Menus);
             return basicOrder;
         }
 

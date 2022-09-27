@@ -76,15 +76,18 @@ namespace CateringSystem.Services
 
         public List<MenuDto> GetAllFromRestaurant(int restaurantId)
         {
-            var restaurant = _dbContext.Restaurants.FirstOrDefault(x=>x.Id == restaurantId);
-            
+
+            var restaurant = _dbContext.Restaurants
+                .Include(x => x.Meals)
+                .FirstOrDefault(x => x.Id == restaurantId);
+
             if (restaurant == null)
             {
                 throw new NotFoundException("There isn't such restaurant.");
             }
             var restaurantName = restaurant.CompanyName;
 
-            var meals = _dbContext.Meals.Where(x => x.RestaurantsId == restaurant.Id).ToList();
+            var meals = restaurant.Meals;//_dbContext.Meals.Where(x => x.RestaurantsId == restaurant.Id).ToList();
 
             var mealsMenus = _dbContext.MenuMeals.ToList();
 
@@ -99,7 +102,7 @@ namespace CateringSystem.Services
                 .Select(t => new
                 {
                     Id = t.Key,
-                    SumPriceFOrOneDayMenu = t.Sum(x => x.Price),
+                    SumPriceForOneDayMenu = t.Sum(x => x.Price),
                 }).ToList();
 
             var menus = _dbContext.Menus
@@ -115,19 +118,17 @@ namespace CateringSystem.Services
                     if (group.Id == menu.Id)
                     {
                         menu.RestaurantName = restaurantName;
-                        menu.TotalPriceForOneDay = groupedConn.Where(x => x.Id == menu.Id).Select(x => x.SumPriceFOrOneDayMenu).Sum(); 
+                        menu.TotalPriceForOneDay = groupedConn.Where(x => x.Id == menu.Id).Select(x => x.SumPriceForOneDayMenu).Sum(); 
                     }                
                 }
             }
-            var menusDtoWithoutRestaurant = menusDto.Where(x => x.RestaurantName is null);
 
-            var result = menusDto.Except(menusDtoWithoutRestaurant).ToList();
+            var result = menusDto.Where(x => x.RestaurantName != null).ToList();
             return result;
-
         }
 
 
-        public MenuDto GetMenuFromrestaurant(int restaurantId, int menuId)
+        public MenuDto GetMenuFromrestaurant(int restaurantId, int menuId) //to raczej nie bedzie potrzebne!
         {
             
             var restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id == restaurantId);

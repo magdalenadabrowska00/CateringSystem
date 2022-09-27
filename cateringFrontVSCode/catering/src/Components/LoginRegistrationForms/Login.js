@@ -69,6 +69,7 @@ function handleSubmit(event) {
             import Input from "react-validation/build/input";
             import CheckButton from "react-validation/build/button";
             import AuthService from "../../Services/Authentication";
+
             const required = (value) => {
               if (!value) {
                 return (
@@ -78,6 +79,7 @@ function handleSubmit(event) {
                 );
               }
             };
+            
             const Login = () => {
               let navigate = useNavigate();
               const form = useRef();

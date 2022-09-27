@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CateringSystem.Data.Models
 {
@@ -15,7 +16,7 @@ namespace CateringSystem.Data.Models
         public DateTime OrderDeliveryDate { get; set; }
         public int OrderDeliveryStartHour { get; set; }
         public int OrderDeliveryEndHour { get; set; }
-        //public int MenuId { get; set; }
+        public List<MenuDto> Menus { get; set; }
 
     }
 }

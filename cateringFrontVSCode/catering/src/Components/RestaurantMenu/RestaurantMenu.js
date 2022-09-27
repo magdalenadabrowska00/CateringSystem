@@ -1,20 +1,26 @@
-import { Table, TableHead, TableBody, TableRow, TableCell } from "@mui/material";
+import { Table, TableHead, TableBody, TableRow, TableCell, Button, Link } from "@mui/material";
 import React, { useEffect, useState} from "react";
 import { createEndpoint, ENDPOINTS } from "../../api";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { FaceRetouchingNaturalOutlined } from "@mui/icons-material";
 
-export default function RestaurantForm() {
+export default function RestaurantMenu() {
 
-    const [restaurant, setRestaurants] = useState([]);
+    const [menu, setMenus] = useState([]);
     const [error, setError] = useState(null);
     let navigate = useNavigate();
+//"https://localhost:5001/api/restaurant/2/menu"
+//createEndpoint(ENDPOINTS.RESTAURANT + id + '/' + ENDPOINTS.MENU + '/')
 
-    useEffect(() => {
-        createEndpoint(ENDPOINTS.RESTAURANT)
-        .fetchAll()
+//        createEndpoint(ENDPOINTS.RESTAURANT + { id }+ '/' + ENDPOINTS.MENU + '/')
+//.fetchById()
+
+//fetch(`https://localhost:5001/api/restaurant/`+{id}`+/menu`)   działa
+    useEffect((id) => {
+        createEndpoint(ENDPOINTS.RESTAURANT + { id }+ '/' + ENDPOINTS.MENU + '/')
+        .fetchById()
         .then(response => {
-            setRestaurants(response.data);
+            setMenus(response.data);
         },
         error => {
             setError(error);
@@ -33,38 +39,35 @@ export default function RestaurantForm() {
                 <TableHead>
                     <TableRow>
                         <TableCell>
-                        Restaurant id
+                        Menu id
                         </TableCell>
-                        <TableCell>NIP</TableCell>
-                        <TableCell>Company name</TableCell>
-                        <TableCell>Email</TableCell>
+                        <TableCell>Menu type</TableCell>
+                        <TableCell>Restaurant</TableCell>
+                        <TableCell>Total price for one day</TableCell>
                         <TableCell>Phone number</TableCell>
-                        <TableCell>Url address</TableCell>
+                        <TableCell>Date</TableCell>
                         <TableCell></TableCell>
                     </TableRow>
                 </TableHead>
 
                 <TableBody>
                     {
-                        restaurant.map((item) => (
+                        menu.map((item) => (
                             <TableRow key={item.Id}>
                                 <TableCell>
-                                    <Link to={ `${item.Id}/` + ENDPOINTS.MENU } activeClassName="current">{item.Id}</Link>
+                                    {item.Id}
                                 </TableCell>
                                 <TableCell>
-                                    {item.NIP}
+                                    {item.MenuTypeName}
                                 </TableCell>
                                 <TableCell>
-                                    <Link to={`/restaurant/${item.Id}/menus`} activeClassName="active">{item.CompanyName}</Link>
+                                    {item.RestaurantName}
                                 </TableCell>
                                 <TableCell>
-                                    {item.Email}
+                                    {item.TotalPriceForOneDay}
                                 </TableCell>
                                 <TableCell>
-                                    {item.PhoneNumber}
-                                </TableCell>
-                                <TableCell>
-                                    {item.UrlAddress}
+                                    {item.Date}
                                 </TableCell>
                                 <TableCell></TableCell>
                             </TableRow>
@@ -72,11 +75,8 @@ export default function RestaurantForm() {
                     }
                 </TableBody>
             </Table>
-
+            
         )
     }
 
-
-
-    
 }
