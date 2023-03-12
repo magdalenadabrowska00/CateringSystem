@@ -76,103 +76,40 @@ namespace CateringSystem.Services
 
         public List<MenuDto> GetAllFromRestaurant(int restaurantId)
         {
-
-            var restaurant = _dbContext.Restaurants
-                .Include(x => x.Meals)
-                .FirstOrDefault(x => x.Id == restaurantId);
-
-            if (restaurant == null)
-            {
-                throw new NotFoundException("There isn't such restaurant.");
-            }
-            var restaurantName = restaurant.CompanyName;
-
-            var meals = restaurant.Meals;//_dbContext.Meals.Where(x => x.RestaurantsId == restaurant.Id).ToList();
-
-            var mealsMenus = _dbContext.MenuMeals.ToList();
-
-            var mealsWithMenuId = meals.Join(mealsMenus,
-                x => x.Id,
-                y => y.MealId,
-                (x, y) => new { x.Price, y.MenuId });
-
-
-            var groupedConn = mealsWithMenuId
-                .GroupBy(x => x.MenuId)
-                .Select(t => new
-                {
-                    Id = t.Key,
-                    SumPriceForOneDayMenu = t.Sum(x => x.Price),
-                }).ToList();
-
             var menus = _dbContext.Menus
-                .Include(x => x.Meals).ThenInclude(x => x.Restaurants)
+                .Where(x => x.RestaurantId == restaurantId)
+                .Include(x => x.Meals)
+                    .ThenInclude(x => x.Restaurants)
                 .Include(x => x.MenuType);
 
-            var menusDto = _mapper.Map<List<MenuDto>>(menus);
+            var restaurantName = _dbContext.Restaurants.FirstOrDefault(x => x.Id == restaurantId).CompanyName;
 
-            foreach (var group in groupedConn)
+            var result = _mapper.Map<List<MenuDto>>(menus);
+
+            foreach (var menu in result)
             {
-                foreach (var menu in menusDto)
-                {
-                    if (group.Id == menu.Id)
-                    {
-                        menu.RestaurantName = restaurantName;
-                        menu.TotalPriceForOneDay = groupedConn.Where(x => x.Id == menu.Id).Select(x => x.SumPriceForOneDayMenu).Sum(); 
-                    }                
-                }
+                menu.RestaurantName = restaurantName;
+                menu.TotalPriceForOneDay = menu.Meals.Sum(x => x.Price);               
             }
-
-            var result = menusDto.Where(x => x.RestaurantName != null).ToList();
+            
             return result;
         }
 
 
-        public MenuDto GetMenuFromrestaurant(int restaurantId, int menuId) //to raczej nie bedzie potrzebne!
+        public MenuDto GetMenuFromrestaurant(int restaurantId, int menuId) //do złożenia zamówienia
         {
-            
-            var restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id == restaurantId);
+            var restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id != restaurantId);
 
             if (restaurant == null)
             {
                 throw new NotFoundException("There isn't such restaurant.");
             }
-            var restaurantName = restaurant.CompanyName;
 
-            var meals = _dbContext.Meals.Where(x => x.RestaurantsId == restaurant.Id).ToList();
-
-            var mealsMenus = _dbContext.MenuMeals.Where(x => x.MenuId == menuId).ToList();
-
-            var mealsWithMenuId = meals.Join(mealsMenus,
-                x => x.Id,
-                y => y.MealId,
-                (x, y) => new { x.Price, y.MenuId });
-
-
-            var groupedConn = mealsWithMenuId
-                .GroupBy(x => x.MenuId)
-                .Select(t => new
-                {
-                    Id = t.Key,
-                    SumPriceFOrOneDayMenu = t.Sum(x => x.Price),
-                }).ToList();
-
-            if(!groupedConn.Any() || groupedConn.Count == 0)  
-            {
-                throw new NotFoundException("The restaurant and menu doesn't match.");
-            }
-
-            var menu = _dbContext.Menus
-                .Include(x => x.Meals).ThenInclude(x => x.Restaurants)
-                .Include(x => x.MenuType)
-                .FirstOrDefault(x=>x.Id == menuId);
-
-
+            var menu = _dbContext.Menus.Where(x => x.RestaurantId == restaurantId && x.Id == menuId).Include(x => x.Meals).Include(x => x.MenuType).FirstOrDefault();
             var menuDto = _mapper.Map<MenuDto>(menu);
+            menuDto.RestaurantName = restaurant.CompanyName;
+            menuDto.TotalPriceForOneDay = menu.Meals.Sum(x => x.Price);
 
-            menuDto.RestaurantName = restaurantName;
-            menuDto.TotalPriceForOneDay = groupedConn.Where(x => x.Id == menuId).Select(x => x.SumPriceFOrOneDayMenu).Sum();
-               
             return menuDto;
         }
     }

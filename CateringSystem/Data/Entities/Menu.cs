@@ -12,6 +12,7 @@ namespace CateringSystem.Data.Entities
         public List<Meal> Meals { get; set; } 
         public int OrderId { get; set; }
         public Order Order { get; set; }
+        public int? RestaurantId { get; set; }
         //public List<MenuMeal> MenuMeals { get; set; } = new List<MenuMeal>();
     }
 }

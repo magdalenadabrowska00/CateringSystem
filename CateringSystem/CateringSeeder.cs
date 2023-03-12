@@ -229,7 +229,55 @@ namespace CateringSystem
                                 DeliveryStartHour = 8,
                                 DeliveryEndHour = 10,
                             }
-                        }
+                        },
+                        new Order()
+                        {
+                            Name = RandomNameOfOrder(),
+                            OrderDate = new DateTime(2021, 09, 11),
+                            DeliveryDate = new DateTime(2021, 09, 15),
+                            DeliveryCity = "Warszawa",
+                            DeliveryAddress = "3 maja 19",
+                            DeliveryPostalCode = "50-200",
+                            DeliveryMenId = 2,
+                            OrdersDelivery = new OrderDelivery()
+                            {
+                                DeliveryDate = new DateTime(2021, 09, 15),
+                                DeliveryStartHour = 8,
+                                DeliveryEndHour = 10,
+                            }
+                        },
+                        new Order()
+                        {
+                            Name = RandomNameOfOrder(),
+                            OrderDate = new DateTime(2022, 08,23),
+                            DeliveryDate = new DateTime(2022, 08, 25),
+                            DeliveryCity = "Warszawa",
+                            DeliveryAddress = "3 maja 19",
+                            DeliveryPostalCode = "50-200",
+                            DeliveryMenId = 1,
+                            OrdersDelivery = new OrderDelivery()
+                            {
+                                DeliveryDate = new DateTime(2022,08,25),
+                                DeliveryStartHour = 8,
+                                DeliveryEndHour = 10,
+                            }
+                        },
+                        new Order()
+                        {
+                            Name = RandomNameOfOrder(),
+                            OrderDate = new DateTime(2022, 02, 22),
+                            DeliveryDate = new DateTime(2022, 02, 25),
+                            DeliveryCity = "Warszawa",
+                            DeliveryAddress = "3 maja 19",
+                            DeliveryPostalCode = "50-200",
+                            DeliveryMenId = 1,
+                            OrdersDelivery = new OrderDelivery()
+                            {
+                                DeliveryDate = new DateTime(2022, 02, 25),
+                                DeliveryStartHour = 8,
+                                DeliveryEndHour = 10,
+                            }
+                        },
                     }
                 }
             };
@@ -244,6 +292,7 @@ namespace CateringSystem
                 {
                     MenuTypeId = 1,
                     OrderId = 1,
+                    RestaurantId = 1,
                     Meals = new List<Meal>()
                     {
                         new Meal()
@@ -292,6 +341,7 @@ namespace CateringSystem
                 {
                     MenuTypeId = 1,
                     OrderId = 2,
+                    RestaurantId = 2,
                     Meals = new List<Meal>()
                     {
 
@@ -336,7 +386,154 @@ namespace CateringSystem
                             RestaurantsId = 2,
                         },
                     },
-                }
+                },
+                new Menu()
+                {
+                    MenuTypeId = 2,
+                    OrderId = 3,
+                    RestaurantId = 1,
+                    Meals = new List<Meal>()
+                    {
+                        new Meal()
+                        {
+                            Name = "Banana Bread with apple",
+                            WayOfGiving = "cold",
+                            Description = "Oat banana bread with pomegranate and Greek yogurt",
+                            Price = 8.00M,
+                            RestaurantsId = 1,
+                        },
+                        new Meal()
+                        {
+                            Name = "Lithuanian soup with pepper",
+                            WayOfGiving = "cold",
+                            Description = "Lithuanian cold soup with egg and wasa bread",
+                            Price = 8.50M,
+                            RestaurantsId = 1,
+                        },
+                        new Meal()
+                        {
+                            Name = "Turkey leg with green salad",
+                            WayOfGiving = "hot",
+                            Description = "Turkey leg in bbq sauce with quinoa and broccoli",
+                            Price = 33.00M,
+                            RestaurantsId = 1,
+                        },
+                        new Meal()
+                        {
+                            Name = "Vegetable salad with a chicken with salad",
+                            WayOfGiving = "cold",
+                            Description = "Vegetable salad with a leg of chicken",
+                            Price = 18.00M,
+                            RestaurantsId = 1,
+                        }
+                        ,new Meal()
+                        {
+                            Name = "Wrap with chicken and vegetables and cookie",
+                            WayOfGiving = "hot",
+                            Description = "Whole wheat wrap with chicken, colorful cabbage salad, and garlic sauce",
+                            Price = 18.50M,
+                            RestaurantsId = 1,
+                        }
+                    }
+                },
+                new Menu()
+                {
+                    MenuTypeId = 1,
+                    OrderId = 4,
+                    RestaurantId = 2,
+                    Meals = new List<Meal>()
+                    {
+                        new Meal()
+                        {
+                            Name = "Apple cake",
+                            WayOfGiving = "cold",
+                            Description = "Apple cake",
+                            Price = 8.00M,
+                            RestaurantsId = 2,
+                        },
+                        new Meal()
+                        {
+                            Name = "Tomatoe soup",
+                            WayOfGiving = "cold",
+                            Description = "Tomatoe soup",
+                            Price = 10.50M,
+                            RestaurantsId = 2,
+                        },
+                        new Meal()
+                        {
+                            Name = "Turkey leg",
+                            WayOfGiving = "hot",
+                            Description = "Turkey leg in bbq sauce with quinoa and broccoli",
+                            Price = 19.00M,
+                            RestaurantsId = 2,
+                        },
+                        new Meal()
+                        {
+                            Name = "Vegetable salad with a fish",
+                            WayOfGiving = "hot",
+                            Description = "Vegetable salad with fish",
+                            Price = 19.00M,
+                            RestaurantsId = 2,
+                        }
+                        ,new Meal()
+                        {
+                            Name = "Wrap with chicken and vegetables",
+                            WayOfGiving = "hot",
+                            Description = "Whole wheat wrap with chicken, colorful cabbage salad, and garlic sauce",
+                            Price = 19.50M,
+                            RestaurantsId = 2,
+                        }
+                    }
+                },
+                new Menu()
+                {
+                    MenuTypeId = 1,
+                    OrderId = 5,
+                    RestaurantId = 2,
+                    Meals = new List<Meal>()
+                    {
+                        new Meal()
+                        {
+                            Name = "Apple cake with sugar",
+                            WayOfGiving = "cold",
+                            Description = "Apple cake",
+                            Price = 10.00M,
+                            RestaurantsId = 2,
+                        },
+                        new Meal()
+                        {
+                            Name = "Tomatoe soup",
+                            WayOfGiving = "hot",
+                            Description = "Tomatoe soup",
+                            Price = 8.50M,
+                            RestaurantsId = 2,
+                        },
+                        new Meal()
+                        {
+                            Name = "Turkey leg",
+                            WayOfGiving = "hot",
+                            Description = "Turkey leg in bbq sauce with quinoa and broccoli",
+                            Price = 16.00M,
+                            RestaurantsId = 2,
+                        },
+                        new Meal()
+                        {
+                            Name = "Vegetable salad with chicken and fish",
+                            WayOfGiving = "hot",
+                            Description = "Vegetable salad with chicken and fish",
+                            Price = 19.00M,
+                            RestaurantsId = 2,
+                        }
+                        ,new Meal()
+                        {
+                            Name = "Wrap with chicken and vegetables and garlic souce",
+                            WayOfGiving = "hot",
+                            Description = "Whole wheat wrap with chicken, colorful cabbage salad, and garlic sauce",
+                            Price = 20.50M,
+                            RestaurantsId = 2,
+                        }
+                    }
+                },
             };
             return menus;
         }

@@ -6,6 +6,6 @@
         public Menu Menu { get; set; }
         public int MealId { get; set; }
         public Meal Meal { get; set; }
-        public int MealAssessment { get; set; }
+        public int? MealAssessment { get; set; }
     }
 }

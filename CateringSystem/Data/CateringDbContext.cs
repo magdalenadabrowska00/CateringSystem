@@ -38,7 +38,7 @@ namespace CateringSystem.Data
                   wit =>
                   {
                       wit.HasKey(x => new { x.MenuId, x.MealId });
-                      wit.Property(x => x.MealAssessment).HasDefaultValueSql("0");
+                      wit.Property(x => x.MealAssessment);
                   }
                 );
 
@@ -125,7 +125,6 @@ namespace CateringSystem.Data
                 .Property(x => x.Date).IsRequired();
             modelBuilder.Entity<Menu>()
                 .Property(x => x.OrderId).HasDefaultValueSql("0");
-                //.IsRequired(false);
         }
     }
 }
