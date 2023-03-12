@@ -16,7 +16,7 @@ namespace CateringSystem.Data
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
-
+        public DbSet<OrderMenu> OrdersMenus { get; set; }
 
         public CateringDbContext(DbContextOptions<CateringDbContext> options): base(options) { }
 
@@ -123,8 +123,21 @@ namespace CateringSystem.Data
 
             modelBuilder.Entity<Menu>()
                 .Property(x => x.Date).IsRequired();
-            modelBuilder.Entity<Menu>()
-                .Property(x => x.OrderId).HasDefaultValueSql("0");
+
+            modelBuilder.Entity<Order>()
+                .HasMany(p => p.Menus)
+                .WithMany(x => x.Orders)
+                .UsingEntity<OrderMenu>(
+                  w => w.HasOne(wit => wit.Menu)
+                  .WithMany()
+                  .HasForeignKey(wit => wit.MenuId),
+
+                  w => w.HasOne(wit => wit.Order)
+                  .WithMany()
+                  .HasForeignKey(wit => wit.OrderId),
+
+                  wit => wit.HasKey(x => new { x.MenuId, x.OrderId }) 
+                );
         }
     }
 }
