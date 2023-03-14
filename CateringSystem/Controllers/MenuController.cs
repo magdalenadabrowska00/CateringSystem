@@ -32,5 +32,11 @@ namespace CateringSystem.Controllers
             return Ok(result);
         }
         
+        [HttpPost]
+        public ActionResult<CreateMenuDto> CreateMenu([FromRoute] int restaurantId, [FromBody] CreateMenuDto dto)
+        {
+            var menuId = _menuService.CreateMenuForRestaurant(dto, restaurantId);
+            return Created($"api/restaurant/{restaurantId}/menu/{menuId}", null);
+        }
     }
 }

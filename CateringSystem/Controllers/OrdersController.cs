@@ -54,7 +54,13 @@ namespace CateringSystem.Controllers
             return Ok(orders);
         }
 
+        [HttpPost]
+        public ActionResult Post([FromBody] CreateOrderDto dto)
+        {
+            var orderId = _orderService.Create(dto);
+            return Created($"api/order/{orderId}", null);
+        }
 
-
+        
     }
 }

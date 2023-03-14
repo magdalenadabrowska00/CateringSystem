@@ -112,5 +112,23 @@ namespace CateringSystem.Services
 
             return menuDto;
         }
+
+        public int CreateMenuForRestaurant(CreateMenuDto dto, int restaurantId)
+        {
+            var mealsIds = dto.Meals.Select(x => x.Id).ToList(); //jeśli nie uda się z mapperem tylko z Id, to uprościć model o te Id, a nie całe obiekty, wtedy pobierać z frontu same Id też
+            //var mealsEntities = _mapper.Map<List<Meal>>(dto.Meals);
+
+            var menuEntity = new Menu
+            {
+                MenuTypeId = dto.MenuTypeId,
+                Date = dto.Date,
+                RestaurantId = restaurantId,
+                Meals = _dbContext.Meals.Where(x => mealsIds.Contains(x.Id)).ToList() //mealsEntities
+            };
+
+            _dbContext.Menus.Add(menuEntity);
+            _dbContext.SaveChanges();
+            return menuEntity.Id;
+        }
     }
 }
