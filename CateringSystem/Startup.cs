@@ -66,6 +66,10 @@ namespace CateringSystem
                 };
             });
 
+            var deepLAuth = new DeepLAuthorizationModel();
+            Configuration.GetSection("DeepLSettings").Bind(deepLAuth);
+            services.AddSingleton(deepLAuth);
+
             services.AddControllers().AddFluentValidation();
             services.AddScoped<CateringSeeder>();
             services.AddAutoMapper(this.GetType().Assembly);
@@ -74,6 +78,7 @@ namespace CateringSystem
             services.AddScoped<IRestaurantService, RestaurantService>();
             services.AddScoped<IMealService, MealService>();
             services.AddScoped<IMenuService, MenuService>();
+            services.AddScoped<ITranslationService, TranslationService>();
             services.AddScoped<ErrorHandlingMiddleware>();
             services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();

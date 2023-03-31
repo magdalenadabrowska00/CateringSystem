@@ -4,6 +4,7 @@ using CateringSystem.Data.Entities;
 using CateringSystem.Data.Models;
 using CateringSystem.Exceptions;
 using CateringSystem.ServicesInterfaces;
+using DeepL;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,13 @@ namespace CateringSystem.Services
     {
         private readonly CateringDbContext _dbContext;
         private readonly IMapper _mapper;
+        private readonly ITranslationService _translationService;
 
-        public MenuService(CateringDbContext dbContext, IMapper mapper)
+        public MenuService(CateringDbContext dbContext, IMapper mapper, ITranslationService translationService)
         {
             _dbContext = dbContext;
             _mapper = mapper;
+            _translationService = translationService;
         }
 
         /***
@@ -74,7 +77,7 @@ namespace CateringSystem.Services
         ***/
 
 
-        public List<MenuDto> GetAllFromRestaurant(int restaurantId)
+        public List<MenuDto> GetAllFromRestaurant(int restaurantId, string language)
         {
             var menus = _dbContext.Menus
                 .Where(x => x.RestaurantId == restaurantId)
@@ -89,20 +92,29 @@ namespace CateringSystem.Services
             foreach (var menu in result)
             {
                 menu.RestaurantName = restaurantName;
-                menu.TotalPriceForOneDay = menu.Meals.Sum(x => x.Price);               
+                menu.TotalPriceForOneDay = menu.Meals.Sum(x => x.Price);
+                if (language != LanguageCode.English)
+                {
+                    menu.MenuTypeName = _translationService
+                        .Translate(
+                            menu.MenuTypeName.ToString(),
+                            LanguageCode.English,
+                            LanguageCode.Polish)
+                        .Result;
+                }
             }
             
             return result;
         }
 
-
+        //bez mealsów w modelu i pobierania myślę
         public MenuDto GetMenuFromrestaurant(int restaurantId, int menuId) //do złożenia zamówienia
         {
             var restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id != restaurantId);
 
             if (restaurant == null)
             {
-                throw new NotFoundException("There isn't such restaurant.");
+                throw new CateringSystem.Exceptions.NotFoundException("There isn't such restaurant.");
             }
 
             var menu = _dbContext.Menus.Where(x => x.RestaurantId == restaurantId && x.Id == menuId).Include(x => x.Meals).Include(x => x.MenuType).FirstOrDefault();
@@ -111,6 +123,30 @@ namespace CateringSystem.Services
             menuDto.TotalPriceForOneDay = menu.Meals.Sum(x => x.Price);
 
             return menuDto;
+        }
+
+        public List<MealDto> GetAllMealsForMenu(int restaurantId, int menuId, string language)
+        {
+            var mealsFromMenu = _dbContext
+                .MenuMeals
+                .Where(x => x.MenuId == menuId)
+                .Include(x => x.Meal).ThenInclude(x => x.Restaurants)
+                .Select(x => x.Meal)
+                .ToList();
+
+            var mealsToMenu = _mapper.Map<List<MealDto>>(mealsFromMenu);
+
+            if (language != LanguageCode.English)
+            {
+                foreach (var meal in mealsToMenu)
+                {
+                    meal.Name = _translationService.Translate(meal.Name.ToString(), LanguageCode.English, LanguageCode.Polish).Result;
+                    meal.WayOfGiving = _translationService.Translate(meal.WayOfGiving.ToString(), LanguageCode.English, LanguageCode.Polish).Result;
+                    meal.Description = meal.Description != null ? _translationService.Translate(meal.Description.ToString(), LanguageCode.English, LanguageCode.Polish).Result : string.Empty;                   
+                }
+            }
+
+            return mealsToMenu;
         }
 
         public int CreateMenuForRestaurant(CreateMenuDto dto, int restaurantId)

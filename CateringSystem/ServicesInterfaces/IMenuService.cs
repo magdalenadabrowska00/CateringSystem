@@ -6,7 +6,8 @@ namespace CateringSystem.ServicesInterfaces
     public interface IMenuService
     {
         //List<MenuDto> GetAll();
-        List<MenuDto> GetAllFromRestaurant(int restaurantId);
+        List<MenuDto> GetAllFromRestaurant(int restaurantId, string language);
+        List<MealDto> GetAllMealsForMenu(int restaurantId, int menuId, string language);
         MenuDto GetMenuFromrestaurant(int restaurantId, int menuId);
         int CreateMenuForRestaurant(CreateMenuDto dto, int restaurantId);
     }

@@ -9,7 +9,7 @@ namespace CateringSystem.Controllers
 {
     [Route("api/restaurant/{restaurantId}/meal")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class MealController : ControllerBase
     {
         private readonly IMealService _mealService;
@@ -18,11 +18,16 @@ namespace CateringSystem.Controllers
         {
             _mealService = mealService;
         }
-
+        /*
+        [HttpGet("api/restaurant/{restaurantId}/menu/{menuId}")]
+        public ActionResult<List<MealDto>> GetAllMealFromRestaurantMenu([FromRoute] int restaurantId, [FromRoute] int menuId)
+        {
+            var result = _mealService.GetAllMealsForMenu(restaurantId, menuId);
+            return Ok(result);
+        }
+        */
         [HttpGet]
         [AllowAnonymous]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<MealDto>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<MealDto>> GetAllMealFromRestaurant([FromRoute] int restaurantId)
         {
             var result = _mealService.GetAllMeals(restaurantId);

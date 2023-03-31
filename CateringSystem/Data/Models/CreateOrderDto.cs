@@ -5,7 +5,7 @@ namespace CateringSystem.Data.Models
 {
     public class CreateOrderDto
     {
-        public string Name { get; set; }
+        //public string Name { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime DeliveryDate { get; set; }
         public string DeliveryCity { get; set; }
@@ -15,7 +15,7 @@ namespace CateringSystem.Data.Models
         public DateTime OrderDeliveryDate { get; set; }
         public int OrderDeliveryStartHour { get; set; }
         public int OrderDeliveryEndHour { get; set; }
-        public List<int> MenuIds { get; set; }
+        public List<MenuIdsDto> MenuIds { get; set; }
         //public List<MenuDto> Menus { get; set; }
 
     }

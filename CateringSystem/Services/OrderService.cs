@@ -76,8 +76,14 @@ namespace CateringSystem.Services
         public int Create(CreateOrderDto dto)
         {
             var orderEntity = _mapper.Map<Order>(dto);
-            orderEntity.Menus = _dbContext.Menus.Where(x => dto.MenuIds.Contains(x.Id)).ToList();
+            orderEntity.Menus = _dbContext.Menus
+                .Where(x => dto.MenuIds
+                    .Select(x => x.Id)
+                        .Contains(x.Id))
+                .ToList();
+
             orderEntity.UserId = 1; //usera za pomocą Id tego zalogowanego
+            orderEntity.Name = RandomNameOfOrder();
 
             _dbContext.Orders.Add(orderEntity);
             _dbContext.SaveChanges();
@@ -95,5 +101,12 @@ namespace CateringSystem.Services
             return basicOrder;
         }
 
+        private static string RandomNameOfOrder()
+        {
+            Random random = new Random();
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            return new string(Enumerable.Repeat(chars, 10)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
     }
 }

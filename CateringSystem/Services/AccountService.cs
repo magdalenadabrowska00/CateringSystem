@@ -86,8 +86,8 @@ namespace CateringSystem.Services
                 expires: expires,
                 signingCredentials: credencials);
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            return tokenHandler.WriteToken(token);
+            var tokenHandler = new JwtSecurityTokenHandler().WriteToken(token);
+            return tokenHandler;
         }
     }
 }

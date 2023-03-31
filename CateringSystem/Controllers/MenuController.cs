@@ -19,9 +19,9 @@ namespace CateringSystem.Controllers
         }
       
         [HttpGet]
-        public ActionResult<List<MenuDto>> GetAll([FromRoute] int restaurantId)
+        public ActionResult<List<MenuDto>> GetAll([FromRoute] int restaurantId, string language)
         {
-            var result = _menuService.GetAllFromRestaurant(restaurantId);//_menuService.GetAll();
+            var result = _menuService.GetAllFromRestaurant(restaurantId, language);//_menuService.GetAll();
             return Ok(result);
         }
         
@@ -31,7 +31,15 @@ namespace CateringSystem.Controllers
             var result = _menuService.GetMenuFromrestaurant(restaurantId, menuId);
             return Ok(result);
         }
-        
+
+   
+        [HttpGet("{menuId}/meals")]
+        public ActionResult<List<MealDto>> GetAllMealFromRestaurantMenu([FromRoute] int restaurantId, [FromRoute] int menuId, string language)
+        {
+            var result = _menuService.GetAllMealsForMenu(restaurantId, menuId, language);
+            return Ok(result);
+        }
+
         [HttpPost]
         public ActionResult<CreateMenuDto> CreateMenu([FromRoute] int restaurantId, [FromBody] CreateMenuDto dto)
         {
