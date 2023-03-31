@@ -8,7 +8,7 @@ namespace CateringSystem.ServicesInterfaces
         //List<MenuDto> GetAll();
         List<MenuDto> GetAllFromRestaurant(int restaurantId, string language);
         List<MealDto> GetAllMealsForMenu(int restaurantId, int menuId, string language);
-        MenuDto GetMenuFromrestaurant(int restaurantId, int menuId);
+        MenuDto GetMenuFromrestaurant(int restaurantId, int menuId, string language);
         int CreateMenuForRestaurant(CreateMenuDto dto, int restaurantId);
     }
 }

@@ -108,7 +108,7 @@ namespace CateringSystem.Services
         }
 
         //bez mealsów w modelu i pobierania myślę
-        public MenuDto GetMenuFromrestaurant(int restaurantId, int menuId) //do złożenia zamówienia
+        public MenuDto GetMenuFromrestaurant(int restaurantId, int menuId, string language) //do złożenia zamówienia
         {
             var restaurant = _dbContext.Restaurants.FirstOrDefault(x => x.Id != restaurantId);
 
@@ -121,6 +121,16 @@ namespace CateringSystem.Services
             var menuDto = _mapper.Map<MenuDto>(menu);
             menuDto.RestaurantName = restaurant.CompanyName;
             menuDto.TotalPriceForOneDay = menu.Meals.Sum(x => x.Price);
+
+            if (language != LanguageCode.English)
+            {
+                menuDto.MenuTypeName = _translationService
+                    .Translate(
+                        menuDto.MenuTypeName.ToString(),
+                        LanguageCode.English,
+                        LanguageCode.Polish)
+                    .Result;
+            }
 
             return menuDto;
         }

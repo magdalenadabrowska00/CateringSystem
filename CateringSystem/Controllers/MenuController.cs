@@ -26,9 +26,9 @@ namespace CateringSystem.Controllers
         }
         
         [HttpGet("{menuId}")]
-        public ActionResult<MenuDto> GetMenuFromRestaurant([FromRoute] int restaurantId, [FromRoute] int menuId)
+        public ActionResult<MenuDto> GetMenuFromRestaurant([FromRoute] int restaurantId, [FromRoute] int menuId, string language)
         {
-            var result = _menuService.GetMenuFromrestaurant(restaurantId, menuId);
+            var result = _menuService.GetMenuFromrestaurant(restaurantId, menuId, language);
             return Ok(result);
         }
 
