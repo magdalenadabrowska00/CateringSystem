@@ -47,7 +47,7 @@ const RegisterPL = () => {
       userRegisterData
     );
     console.log(apiResponse.data);
-    navigate("/login");
+    navigate("/loginPL");
   };
 
   return (

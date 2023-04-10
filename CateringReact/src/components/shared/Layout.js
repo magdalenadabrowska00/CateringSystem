@@ -26,6 +26,7 @@ const Layout = ({ children }) => {
       setHideRole(false);
     }
   });
+  console.log(hideRole);
 
   useEffect(() => {
     if (language === "pl") {
@@ -57,13 +58,13 @@ const Layout = ({ children }) => {
               </Nav.Link>
             )}
 
-            {!user && polishLanguage && (
+            {user && polishLanguage && (
               <Nav.Link as={Link} to="/orderFormPL">
                 Formularz zamówienia
               </Nav.Link>
             )}
 
-            {!user && polishLanguage && (
+            {user && polishLanguage && (
               <Nav.Link as={Link} to="/cardPL">
                 Koszyk
               </Nav.Link>
@@ -80,19 +81,19 @@ const Layout = ({ children }) => {
               </Nav.Link>
             )}
 
-            {!user && !polishLanguage && (
+            {user && !polishLanguage && (
               <Nav.Link as={Link} to="/orderFormEN">
                 Order form
               </Nav.Link>
             )}
             {/* allRestaurants */}
-            {!user && !polishLanguage && (
+            {user && !polishLanguage && (
               <Nav.Link as={Link} to="/restaurantsEN">
                 Restaurants
               </Nav.Link>
             )}
 
-            {!user && !polishLanguage && (
+            {user && !polishLanguage && (
               <Nav.Link as={Link} to="/cardEN">
                 Card
               </Nav.Link>

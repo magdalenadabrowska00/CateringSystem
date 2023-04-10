@@ -47,7 +47,7 @@ const RegisterEN = () => {
       userRegisterData
     );
     console.log(apiResponse.data);
-    navigate("/login");
+    navigate("/loginEN");
   };
 
   return (

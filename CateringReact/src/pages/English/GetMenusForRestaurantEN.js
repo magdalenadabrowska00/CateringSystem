@@ -9,6 +9,7 @@ import AddMenusContext from "../../components/shared/AddMenusContext";
 const GetMenusForRestaurantEN = (props) => {
   let navigate = useNavigate();
   const { restaurantId } = useParams();
+  console.log(restaurantId);
   const { menuId } = useParams();
   const [menus, setMenus] = useState([]);
   const { handleAdd } = useContext(AddMenusContext);
@@ -38,20 +39,20 @@ const GetMenusForRestaurantEN = (props) => {
             marginTop: "60px",
           }}
         >
-          <CardHeader title={item.Id}>{item.MenuTypeName}</CardHeader>
+          <CardHeader title={item.id}>{item.menuTypeName}</CardHeader>
           <Card.Body>
-            <Card.Text>Restaurant: {item.RestaurantName}</Card.Text>
+            <Card.Text>Restaurant: {item.restaurantName}</Card.Text>
             <Card.Text>
-              Total price for a day: {item.TotalPriceForOneDay}
+              Total price for a day: {item.totalPriceForOneDay}
             </Card.Text>
-            <Card.Text>Date: {item.Date}</Card.Text>
+            <Card.Text>Date: {item.date}</Card.Text>
             <Button
               variant="primary"
               onClick={() => {
-                LoadDetail(item.Id);
+                LoadDetail(item.id);
               }}
             >
-              Go to menu {item.CompanyName}
+              Go to menu {item.companyName}
             </Button>{" "}
             <Button variant="primary" onClick={(e) => handleAdd(item)}>
               Add to a cart

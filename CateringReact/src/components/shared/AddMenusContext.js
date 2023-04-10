@@ -9,7 +9,7 @@ export const AddMenusContextProvider = ({ children }) => {
   function handleAdd(item) {
     var newItem = [
       {
-        id: item.Id,
+        id: item.id,
       },
     ];
     const od = menusIds.concat(newItem);
@@ -17,9 +17,9 @@ export const AddMenusContextProvider = ({ children }) => {
 
     var newItemCard = [
       {
-        id: item.Id,
-        menuName: item.MenuTypeName,
-        totalPrice: item.TotalPriceForOneDay,
+        id: item.id,
+        menuName: item.menuTypeName,
+        totalPrice: item.totalPriceForOneDay,
       },
     ];
     const card = menuCard.concat(newItemCard);

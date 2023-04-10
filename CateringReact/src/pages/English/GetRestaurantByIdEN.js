@@ -10,6 +10,8 @@ const GetRestaurantByIdEN = (props) => {
   const { restaurantId } = useParams();
   const [restaurant, setRestaurant] = useState({});
 
+  console.log(restaurantId);
+
   // const [lang, setLang] = useState(() => {
   //   if (localStorage.getItem("lang")) {
   //     let language = JSON.parse(localStorage.getItem("lang"));
@@ -30,14 +32,14 @@ const GetRestaurantByIdEN = (props) => {
 
   return (
     restaurant && (
-      <Card key={restaurant.Id} style={{ width: "18rem" }}>
-        <CardHeader title={restaurant.Id}></CardHeader>
+      <Card key={restaurant.id} style={{ width: "18rem" }}>
+        <CardHeader title={restaurant.id}></CardHeader>
         <Card.Body>
-          <Card.Text>Restaurant name: {restaurant.CompanyName}</Card.Text>
-          <Card.Text>Email address: {restaurant.Email}</Card.Text>
-          <Card.Text>Phone number: {restaurant.PhoneNumber}</Card.Text>
-          <Card.Text>Nip: {restaurant.NIP}</Card.Text>
-          <Card.Text>Url address: {restaurant.UrlAddress}</Card.Text>
+          <Card.Text>Restaurant name: {restaurant.companyName}</Card.Text>
+          <Card.Text>Email address: {restaurant.email}</Card.Text>
+          <Card.Text>Phone number: {restaurant.phoneNumber}</Card.Text>
+          <Card.Text>Nip: {restaurant.nip}</Card.Text>
+          <Card.Text>Url address: {restaurant.urlAddress}</Card.Text>
           <Button
             variant="primary"
             onClick={() => {

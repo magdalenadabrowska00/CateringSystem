@@ -8,6 +8,7 @@ import { Button, Row } from "react-bootstrap";
 const GetMenuDetailsByIdForRestaurant = (props) => {
   const { menuId } = useParams();
   const { restaurantId } = useParams();
+  console.log("Id restauracji:" + restaurantId);
 
   const [menuMeals, setMenuMeals] = useState([]);
 
@@ -38,11 +39,11 @@ const GetMenuDetailsByIdForRestaurant = (props) => {
             marginTop: "60px",
           }}
         >
-          <CardHeader title={item.Id}>{item.Name}</CardHeader>
+          <CardHeader title={item.Id}>{item.name}</CardHeader>
           <Card.Body>
-            <Card.Text>Way of giving: {item.WayOfGiving}</Card.Text>
-            <Card.Text>Description: {item.Description}</Card.Text>
-            <Card.Text>Price: {item.Price}</Card.Text>
+            <Card.Text>Way of giving: {item.wayOfGiving}</Card.Text>
+            <Card.Text>Description: {item.description}</Card.Text>
+            <Card.Text>Price: {item.price}</Card.Text>
           </Card.Body>
         </Card>
       ))}

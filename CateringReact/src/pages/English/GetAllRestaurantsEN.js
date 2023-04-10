@@ -38,6 +38,7 @@ const GetAllRestaurantsEN = (props) => {
     });
   }, []);
 
+  console.log(restaurants);
   return restaurants.map((item) => (
     <Card
       key={item.Id}
@@ -48,20 +49,20 @@ const GetAllRestaurantsEN = (props) => {
         marginTop: "60px",
       }}
     >
-      <CardHeader title={item.Id}></CardHeader>
+      <CardHeader title={item.id}></CardHeader>
       <Card.Body>
-        <Card.Text>Restaurant name: {item.CompanyName}</Card.Text>
-        <Card.Text>Email address: {item.Email}</Card.Text>
-        <Card.Text>Phone number: {item.PhoneNumber}</Card.Text>
-        <Card.Text>Nip: {item.NIP}</Card.Text>
-        <Card.Text>Url address: {item.UrlAddress}</Card.Text>
+        <Card.Text>Restaurant name: {item.companyName}</Card.Text>
+        <Card.Text>Email address: {item.email}</Card.Text>
+        <Card.Text>Phone number: {item.phoneNumber}</Card.Text>
+        <Card.Text>Nip: {item.nip}</Card.Text>
+        <Card.Text>Url address: {item.urlAddress}</Card.Text>
         <Button
           variant="primary"
           onClick={() => {
-            LoadDetail(item.Id);
+            LoadDetail(item.id);
           }}
         >
-          Go to menu {item.CompanyName}
+          Go to menu {item.companyName}
         </Button>
       </Card.Body>
     </Card>
