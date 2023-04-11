@@ -10,9 +10,9 @@ export const LanguageContextProvider = ({ children }) => {
     localStorage.setItem("lang", JSON.stringify(language));
 
     if (language === "pl") {
-      navigate("/homePL");
+      navigate("/loginPL");
     } else {
-      navigate("/");
+      navigate("/loginEN");
     }
   };
 

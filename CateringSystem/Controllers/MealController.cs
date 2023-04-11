@@ -9,7 +9,6 @@ namespace CateringSystem.Controllers
 {
     [Route("api/restaurant/{restaurantId}/meal")]
     [ApiController]
-    //[Authorize]
     public class MealController : ControllerBase
     {
         private readonly IMealService _mealService;
@@ -18,16 +17,8 @@ namespace CateringSystem.Controllers
         {
             _mealService = mealService;
         }
-        /*
-        [HttpGet("api/restaurant/{restaurantId}/menu/{menuId}")]
-        public ActionResult<List<MealDto>> GetAllMealFromRestaurantMenu([FromRoute] int restaurantId, [FromRoute] int menuId)
-        {
-            var result = _mealService.GetAllMealsForMenu(restaurantId, menuId);
-            return Ok(result);
-        }
-        */
+
         [HttpGet]
-        [AllowAnonymous]
         public ActionResult<List<MealDto>> GetAllMealFromRestaurant([FromRoute] int restaurantId)
         {
             var result = _mealService.GetAllMeals(restaurantId);
@@ -35,7 +26,6 @@ namespace CateringSystem.Controllers
         }
 
         [HttpGet("{mealId}")]
-        [AllowAnonymous]
         public ActionResult<MealDto> GetMeal([FromRoute] int restaurantId, [FromRoute] int mealId)
         {
             var meal = _mealService.GetMeal(restaurantId, mealId);
@@ -43,7 +33,6 @@ namespace CateringSystem.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin,Restaurant manager")]
         public ActionResult Post([FromRoute] int restaurantId, [FromBody] CreateMealDto dto)
         {
             var newMealId = _mealService.Create(restaurantId, dto);
@@ -52,7 +41,6 @@ namespace CateringSystem.Controllers
         }
 
         [HttpPut("{mealId}")]
-        [Authorize(Roles = "Admin,Restaurant manager")]
         public ActionResult Edit([FromRoute] int restaurantId,[FromRoute] int mealId, [FromBody] UpdateMealDto dto)
         {
             _mealService.Update(restaurantId, mealId, dto);
@@ -60,13 +48,10 @@ namespace CateringSystem.Controllers
         }
 
         [HttpDelete("{mealId}")]
-        [Authorize(Roles = "Admin,Restaurant manager")]
         public ActionResult Remove([FromRoute] int restaurantId, [FromRoute] int mealId)
         {
             _mealService.Delete(restaurantId, mealId);
             return NoContent();
         }
-
-        //chyba nie ma sensu dodawać metody pobierz wszystko po prostu bez id restauracji
     }
 }

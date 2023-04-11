@@ -8,25 +8,28 @@ import { Button } from "react-bootstrap";
 
 const Layout = ({ children }) => {
   const { user, logout } = useContext(AuthContext);
-  console.log(user);
+  // console.log(user);
 
   let language = JSON.parse(localStorage.getItem("lang"));
 
-  const [hideRole, setHideRole] = useState(false);
+  const role = "http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
+  const [admin, setAdmin] = useState(false);
+  const [client, setClient] = useState(false);
+  const [restaurantManager, setRestaurantManager] = useState(false);
+  const [restaurantWorker, setRestaurantWorker] = useState(false);
+
   const [polishLanguage, setPolishLanguage] = useState(false);
 
   useEffect(() => {
-    if (
-      user &&
-      user["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] ===
-        "User"
-    ) {
-      setHideRole(true);
-    } else {
-      setHideRole(false);
-    }
+    if (user && user[role] === "Admin") {
+      setAdmin(true);
+    } else if (user && user[role] === "Client") {
+      setClient(true);
+    } else if (user && user[role] === "Restaurant manager") {
+      setRestaurantManager(true);
+    } else if (user && user[role] === "Restaurant worker")
+      setRestaurantWorker(true);
   });
-  console.log(hideRole);
 
   useEffect(() => {
     if (language === "pl") {
@@ -59,12 +62,18 @@ const Layout = ({ children }) => {
             )}
 
             {user && polishLanguage && (
+              <Nav.Link as={Link} to="/restaurantsPL">
+                Restauracje
+              </Nav.Link>
+            )}
+
+            {user && polishLanguage && client && (
               <Nav.Link as={Link} to="/orderFormPL">
                 Formularz zamówienia
               </Nav.Link>
             )}
 
-            {user && polishLanguage && (
+            {user && polishLanguage && client && (
               <Nav.Link as={Link} to="/cardPL">
                 Koszyk
               </Nav.Link>
@@ -82,30 +91,20 @@ const Layout = ({ children }) => {
             )}
 
             {user && !polishLanguage && (
-              <Nav.Link as={Link} to="/orderFormEN">
-                Order form
-              </Nav.Link>
-            )}
-            {/* allRestaurants */}
-            {user && !polishLanguage && (
               <Nav.Link as={Link} to="/restaurantsEN">
                 Restaurants
               </Nav.Link>
             )}
 
-            {user && !polishLanguage && (
-              <Nav.Link as={Link} to="/cardEN">
-                Card
+            {user && !polishLanguage && client && (
+              <Nav.Link as={Link} to="/orderFormEN">
+                Order form
               </Nav.Link>
             )}
 
-            {user && (
-              <Nav.Link href="#">
-                {
-                  user[
-                    "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"
-                  ]
-                }
+            {user && !polishLanguage && client && (
+              <Nav.Link as={Link} to="/cardEN">
+                Card
               </Nav.Link>
             )}
           </Nav>

@@ -35,7 +35,7 @@ const HomeEN = () => {
               label="English"
               name="checkbox"
               type="radio"
-              value="en-GB"
+              value="en"
               onChange={(e) => setLanguage(e.target.value)}
             />
 

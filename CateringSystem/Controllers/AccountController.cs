@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CateringSystem.Controllers
 {
     [Route("api/account")]
-    [ApiController] //automatyczna walidacja modelu
+    [ApiController]
     public class AccountController : ControllerBase
     {
         private IAccountService _accountService;

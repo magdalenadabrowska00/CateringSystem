@@ -5,12 +5,12 @@ import Card from "react-bootstrap/Card";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import { Button } from "react-bootstrap";
 
-const GetAllRestaurantsEN = (props) => {
+const GetAllRestaurantsPL = (props) => {
   let navigate = useNavigate();
   const [restaurants, setRestaurants] = useState([]);
 
   const LoadDetail = (id) => {
-    navigate("/restaurantsEN/" + id);
+    navigate("/restaurantsPL/" + id);
   };
 
   // const [lang, setLang] = useState(() => {
@@ -42,22 +42,22 @@ const GetAllRestaurantsEN = (props) => {
     >
       <CardHeader title={item.id}></CardHeader>
       <Card.Body>
-        <Card.Text>Restaurant name: {item.companyName}</Card.Text>
-        <Card.Text>Email address: {item.email}</Card.Text>
-        <Card.Text>Phone number: {item.phoneNumber}</Card.Text>
-        <Card.Text>Nip: {item.nip}</Card.Text>
-        <Card.Text>Url address: {item.urlAddress}</Card.Text>
+        <Card.Text>Nazwa restauracji: {item.companyName}</Card.Text>
+        <Card.Text>Adres email: {item.email}</Card.Text>
+        <Card.Text>Numer kontaktowy: {item.phoneNumber}</Card.Text>
+        <Card.Text>NIP: {item.nip}</Card.Text>
+        <Card.Text>Adres strony: {item.urlAddress}</Card.Text>
         <Button
           variant="primary"
           onClick={() => {
             LoadDetail(item.id);
           }}
         >
-          Go to menu {item.companyName}
+          Idź do menu {item.companyName}
         </Button>
       </Card.Body>
     </Card>
   ));
 };
 
-export default GetAllRestaurantsEN;
+export default GetAllRestaurantsPL;

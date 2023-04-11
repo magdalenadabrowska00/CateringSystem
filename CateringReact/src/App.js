@@ -21,6 +21,10 @@ import LoginPL from "./pages/Polish/LoginPL";
 import RegisterPL from "./pages/Polish/RegisterPL";
 import OrderFormPL from "./pages/Polish/OrderFormPL";
 import CardPL from "./pages/Polish/CardPL";
+import GetAllRestaurantsPL from "./pages/Polish/GetAllRestaurantsPL";
+import GetRestaurantByIdPL from "./pages/Polish/GetRestaurantByIdPL";
+import GetMenusForRestaurantPL from "./pages/Polish/GetMenusForRestaurantPL";
+import GetMenuDetailsByIdForRestaurantPL from "./pages/Polish/GetMenuDetailsByIdForRestaurantPL";
 
 function App() {
   return (
@@ -49,20 +53,36 @@ function App() {
                   path="/restaurantsEN"
                   element={<GetAllRestaurantsEN />}
                 />
+                <Route
+                  path="/restaurantsPL"
+                  element={<GetAllRestaurantsPL />}
+                />
 
                 <Route
                   path="/restaurantsEN/:restaurantId"
                   element={<GetRestaurantByIdEN />}
+                />
+                <Route
+                  path="/restaurantsPL/:restaurantId"
+                  element={<GetRestaurantByIdPL />}
                 />
 
                 <Route
                   path="/restaurantsEN/:restaurantId/menus"
                   element={<GetMenusForRestaurantEN />}
                 />
+                <Route
+                  path="/restaurantsPL/:restaurantId/menus"
+                  element={<GetMenusForRestaurantPL />}
+                />
 
                 <Route
                   path="/restaurantsEN/:restaurantId/menus/:menuId/meals"
                   element={<GetMenuDetailsByIdForRestaurant />}
+                />
+                <Route
+                  path="/restaurantsPL/:restaurantId/menus/:menuId/meals"
+                  element={<GetMenuDetailsByIdForRestaurantPL />}
                 />
               </Routes>
             </Layout>

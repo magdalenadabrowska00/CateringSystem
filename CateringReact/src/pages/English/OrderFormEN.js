@@ -9,7 +9,8 @@ import Col from "react-bootstrap/Col";
 import AuthContext from "../../components/shared/AuthContext";
 
 const OrderFormEN = () => {
-  const { menusIds } = useContext(AddMenusContext);
+  const { menusIds, handleResetCardAndMenusIdsList } =
+    useContext(AddMenusContext);
   console.log(menusIds);
 
   const { user } = useContext(AuthContext);
@@ -68,13 +69,12 @@ const OrderFormEN = () => {
       orderFormData
     );
     console.log(apiResponse.data);
-    navigate("/");
+    handleResetCardAndMenusIdsList();
     if (language === "pl") {
       navigate("/homePL");
     } else {
       navigate("/");
     }
-    // tu będzie navigate do tego zamówienia
   };
 
   return (

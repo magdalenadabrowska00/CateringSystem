@@ -82,7 +82,6 @@ namespace CateringSystem.Services
                         .Contains(x.Id))
                 .ToList();
 
-            orderEntity.UserId = 1; //usera za pomocą Id tego zalogowanego
             orderEntity.Name = RandomNameOfOrder();
 
             _dbContext.Orders.Add(orderEntity);

@@ -15,12 +15,6 @@ namespace CateringSystem.Controllers
 {
     [Route("api/order")]
     [ApiController]
-    //[Authorize] //wszystkie akcje mają miejsce po autoryzacji
-
-    //[AllowAnonymous] //ta konkretna akja nie będzie wymagała autoryzacji
-    //[Authorize(Roles = "Admin")]
-    //[Authorize(Roles = "Manager")]
-    //[Authorize(Roles = "Manager,Admin")]
     public class OrdersController : ControllerBase
     {
         private readonly IOrderService _orderService;
@@ -29,11 +23,8 @@ namespace CateringSystem.Controllers
         {
             _orderService = orderService;
         }
-
-        // GET: api/Orders/5
-        [HttpGet("{id}")]    //użytkownik i zalogowany od którego jest to zamówienie i ci wyżej rangą
-        [ProducesResponseType(StatusCodes.Status200OK, Type=typeof(OrderDto))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+ 
+        [HttpGet("{id}")]
         public ActionResult<OrderDto> GetOrder(int id)
         {
             var order = _orderService.GetById(id);
@@ -45,8 +36,6 @@ namespace CateringSystem.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<OrderDto>))]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult<List<OrderDto>> GetAllOrders([FromQuery] Query query)
         {
             var orders = _orderService.GetAll(query);
@@ -60,7 +49,5 @@ namespace CateringSystem.Controllers
             var orderId = _orderService.Create(dto);
             return Created($"api/order/{orderId}", null);
         }
-
-        
     }
 }

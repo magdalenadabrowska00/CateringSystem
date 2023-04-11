@@ -17,7 +17,6 @@ using CateringSystem.Data.Models.Validators;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using CateringSystem.Middleware;
-using Newtonsoft.Json.Serialization;
 
 namespace CateringSystem
 {
@@ -39,9 +38,11 @@ namespace CateringSystem
                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
 
+            /*
             services.AddControllersWithViews().AddNewtonsoftJson(options => 
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
                 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
+            */
              
             //pobranie informacji z appsetting.json
             var authenticationSettings = new AuthenticationSettings();
@@ -80,7 +81,7 @@ namespace CateringSystem
             services.AddScoped<IMenuService, MenuService>();
             services.AddScoped<ITranslationService, TranslationService>();
             services.AddScoped<ErrorHandlingMiddleware>();
-            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();       
             services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
             services.AddDbContext<CateringDbContext>(options =>
             {

@@ -25,11 +25,19 @@ export const AddMenusContextProvider = ({ children }) => {
     const card = menuCard.concat(newItemCard);
     setMenuCard(card);
   }
+
   console.log(menusIds);
   console.log(menuCard);
 
+  function handleResetCardAndMenusIdsList() {
+    setMenusIds([]);
+    setMenuCard([]);
+  }
+
   return (
-    <AddMenusContext.Provider value={{ menusIds, menuCard, handleAdd }}>
+    <AddMenusContext.Provider
+      value={{ menusIds, menuCard, handleAdd, handleResetCardAndMenusIdsList }}
+    >
       {children}
     </AddMenusContext.Provider>
   );

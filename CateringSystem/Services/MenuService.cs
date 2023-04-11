@@ -93,7 +93,7 @@ namespace CateringSystem.Services
             {
                 menu.RestaurantName = restaurantName;
                 menu.TotalPriceForOneDay = menu.Meals.Sum(x => x.Price);
-                if (language != LanguageCode.English)
+                if (language == LanguageCode.Polish)
                 {
                     menu.MenuTypeName = _translationService
                         .Translate(
@@ -122,7 +122,7 @@ namespace CateringSystem.Services
             menuDto.RestaurantName = restaurant.CompanyName;
             menuDto.TotalPriceForOneDay = menu.Meals.Sum(x => x.Price);
 
-            if (language != LanguageCode.English)
+            if (language == LanguageCode.Polish)
             {
                 menuDto.MenuTypeName = _translationService
                     .Translate(
@@ -146,7 +146,7 @@ namespace CateringSystem.Services
 
             var mealsToMenu = _mapper.Map<List<MealDto>>(mealsFromMenu);
 
-            if (language != LanguageCode.English)
+            if (language == LanguageCode.Polish)
             {
                 foreach (var meal in mealsToMenu)
                 {

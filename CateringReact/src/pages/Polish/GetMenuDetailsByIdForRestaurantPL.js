@@ -5,7 +5,7 @@ import Card from "react-bootstrap/Card";
 import CardHeader from "react-bootstrap/esm/CardHeader";
 import { Button, Row } from "react-bootstrap";
 
-const GetMenuDetailsByIdForRestaurant = (props) => {
+const GetMenuDetailsByIdForRestaurantPL = (props) => {
   let language = JSON.parse(localStorage.getItem("lang"));
   console.log(language);
 
@@ -45,13 +45,13 @@ const GetMenuDetailsByIdForRestaurant = (props) => {
         >
           <CardHeader title={item.Id}>{item.name}</CardHeader>
           <Card.Body>
-            <Card.Text>Way of giving: {item.wayOfGiving}</Card.Text>
-            <Card.Text>Description: {item.description}</Card.Text>
-            <Card.Text>Price: {item.price}</Card.Text>
+            <Card.Text>Sposób podania: {item.wayOfGiving}</Card.Text>
+            <Card.Text>Opis: {item.description}</Card.Text>
+            <Card.Text>Cena: {item.price}</Card.Text>
           </Card.Body>
         </Card>
       ))}
     </Row>
   );
 };
-export default GetMenuDetailsByIdForRestaurant;
+export default GetMenuDetailsByIdForRestaurantPL;

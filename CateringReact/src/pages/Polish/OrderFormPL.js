@@ -1,15 +1,31 @@
 import { Container, Row } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AddMenusContext from "../../components/shared/AddMenusContext";
 import Col from "react-bootstrap/Col";
+import AuthContext from "../../components/shared/AuthContext";
 
-const OrderFormPL = () => {
-  const { menusIds } = useContext(AddMenusContext);
+const OrderFormEN = () => {
+  const { menusIds, handleResetCardAndMenusIdsList } =
+    useContext(AddMenusContext);
   console.log(menusIds);
+
+  const { user } = useContext(AuthContext);
+  const [userId, setUserId] = useState();
+  useEffect(() => {
+    if (user) {
+      setUserId(
+        user[
+          "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
+        ]
+      );
+    }
+  });
+
+  console.log("userId:" + userId);
 
   const navigate = useNavigate();
   let language = JSON.parse(localStorage.getItem("lang"));
@@ -31,6 +47,7 @@ const OrderFormPL = () => {
 
   const orderFormSubmit = async () => {
     let orderFormData = {
+      userId: userId,
       orderDate: orderDate.current.value,
       deliveryDate: deliveryDate.current.value,
       deliveryCity: deliveryCity.current.value,
@@ -52,13 +69,12 @@ const OrderFormPL = () => {
       orderFormData
     );
     console.log(apiResponse.data);
-    navigate("/");
+    handleResetCardAndMenusIdsList();
     if (language === "pl") {
       navigate("/homePL");
     } else {
       navigate("/");
     }
-    // tu będzie navigate do tego zamówienia
   };
 
   return (
@@ -167,4 +183,4 @@ const OrderFormPL = () => {
   );
 };
 
-export default OrderFormPL;
+export default OrderFormEN;

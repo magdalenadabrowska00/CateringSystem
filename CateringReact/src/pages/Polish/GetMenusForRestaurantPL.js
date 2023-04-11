@@ -6,7 +6,7 @@ import CardHeader from "react-bootstrap/esm/CardHeader";
 import { Button, Row } from "react-bootstrap";
 import AddMenusContext from "../../components/shared/AddMenusContext";
 
-const GetMenusForRestaurantEN = (props) => {
+const GetMenusForRestaurantPL = (props) => {
   let language = JSON.parse(localStorage.getItem("lang"));
   let navigate = useNavigate();
   const { restaurantId } = useParams();
@@ -47,21 +47,21 @@ const GetMenusForRestaurantEN = (props) => {
         >
           <CardHeader title={item.id}>{item.menuTypeName}</CardHeader>
           <Card.Body>
-            <Card.Text>Restaurant: {item.restaurantName}</Card.Text>
+            <Card.Text>Restauracja: {item.restaurantName}</Card.Text>
             <Card.Text>
-              Total price for a day: {item.totalPriceForOneDay}
+              Cena menu za dzień: {item.totalPriceForOneDay}
             </Card.Text>
-            <Card.Text>Date: {item.date}</Card.Text>
+            <Card.Text>Dzień: {item.date}</Card.Text>
             <Button
               variant="primary"
               onClick={() => {
                 LoadDetail(item.id);
               }}
             >
-              Go to menu
+              Idź do menu
             </Button>{" "}
             <Button variant="primary" onClick={(e) => handleAdd(item)}>
-              Add to a cart
+              Dodaj
             </Button>
           </Card.Body>
         </Card>
@@ -69,4 +69,4 @@ const GetMenusForRestaurantEN = (props) => {
     </Row>
   );
 };
-export default GetMenusForRestaurantEN;
+export default GetMenusForRestaurantPL;
