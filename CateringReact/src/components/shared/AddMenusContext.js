@@ -20,6 +20,7 @@ export const AddMenusContextProvider = ({ children }) => {
         id: item.id,
         menuName: item.menuTypeName,
         totalPrice: item.totalPriceForOneDay,
+        date: item.date,
       },
     ];
     const card = menuCard.concat(newItemCard);

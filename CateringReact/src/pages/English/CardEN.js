@@ -21,6 +21,7 @@ const CardEN = (props) => {
         >
           <CardHeader title={item.id}>{item.menuName}</CardHeader>
           <Card.Body>
+            <Card.Text>Date: {item.date}</Card.Text>
             <Card.Text>Total price for menu: {item.totalPrice}</Card.Text>
           </Card.Body>
         </Card>
