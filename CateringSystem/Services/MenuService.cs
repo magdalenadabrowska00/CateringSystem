@@ -152,7 +152,7 @@ namespace CateringSystem.Services
                 {
                     meal.Name = _translationService.Translate(meal.Name.ToString(), LanguageCode.English, LanguageCode.Polish).Result;
                     meal.WayOfGiving = _translationService.Translate(meal.WayOfGiving.ToString(), LanguageCode.English, LanguageCode.Polish).Result;
-                    meal.Description = meal.Description != null ? _translationService.Translate(meal.Description.ToString(), LanguageCode.English, LanguageCode.Polish).Result : string.Empty;                   
+                    meal.Description = _translationService.Translate(meal.Description.ToString(), LanguageCode.English, LanguageCode.Polish).Result;                   
                 }
             }
 
@@ -161,15 +161,14 @@ namespace CateringSystem.Services
 
         public int CreateMenuForRestaurant(CreateMenuDto dto, int restaurantId)
         {
-            var mealsIds = dto.Meals.Select(x => x.Id).ToList(); //jeśli nie uda się z mapperem tylko z Id, to uprościć model o te Id, a nie całe obiekty, wtedy pobierać z frontu same Id też
-            //var mealsEntities = _mapper.Map<List<Meal>>(dto.Meals);
+            var mealsIds = dto.Meals.Select(x => x.Id).ToList();
 
             var menuEntity = new Menu
             {
                 MenuTypeId = dto.MenuTypeId,
                 Date = dto.Date,
                 RestaurantId = restaurantId,
-                Meals = _dbContext.Meals.Where(x => mealsIds.Contains(x.Id)).ToList() //mealsEntities
+                Meals = _dbContext.Meals.Where(x => mealsIds.Contains(x.Id)).ToList() 
             };
 
             _dbContext.Menus.Add(menuEntity);

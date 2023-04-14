@@ -402,7 +402,7 @@ namespace CateringSystem
                                         {
                                             Name = "Chocolate-apple risotto",
                                             WayOfGiving = "cold",
-                                            Description = null,
+                                            Description = "Cake with chocolate",
                                             Price = 6.00M,
                                             RestaurantsId = 2,
                                         }
