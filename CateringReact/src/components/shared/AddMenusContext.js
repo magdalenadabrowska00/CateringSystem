@@ -27,9 +27,6 @@ export const AddMenusContextProvider = ({ children }) => {
     setMenuCard(card);
   }
 
-  console.log(menusIds);
-  console.log(menuCard);
-
   function handleResetCardAndMenusIdsList() {
     setMenusIds([]);
     setMenuCard([]);

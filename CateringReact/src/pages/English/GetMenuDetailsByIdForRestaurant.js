@@ -35,7 +35,7 @@ const GetMenuDetailsByIdForRestaurant = (props) => {
     <Row xs={4} md={2} className="g-4">
       {menuMeals.map((item) => (
         <Card
-          key={item.Id}
+          key={item.id}
           style={{
             width: "20rem",
             marginLeft: "30px",

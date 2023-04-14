@@ -1,31 +1,48 @@
-import { useContext } from "react";
-import Card from "react-bootstrap/Card";
-import CardHeader from "react-bootstrap/esm/CardHeader";
-import { Row } from "react-bootstrap";
+import { Container, Table } from "react-bootstrap";
 import AddMenusContext from "../../components/shared/AddMenusContext";
+import { useContext } from "react";
 
-const CardPL = (props) => {
+export default function CardEN() {
   const { menuCard } = useContext(AddMenusContext);
 
+  let sum = 0;
+
+  menuCard.forEach((element) => {
+    sum += element.totalPrice;
+  });
+
   return (
-    <Row xs={4} md={2} className="g-4">
-      {menuCard.map((item) => (
-        <Card
-          key={item.id}
-          style={{
-            width: "20rem",
-            marginLeft: "30px",
-            marginRight: "30px",
-            marginTop: "60px",
-          }}
-        >
-          <CardHeader title={item.id}>{item.menuName}</CardHeader>
-          <Card.Body>
-            <Card.Text>Cena menu: {item.totalPrice}</Card.Text>
-          </Card.Body>
-        </Card>
-      ))}
-    </Row>
+    <Container>
+      <Container>
+        <Table>
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Typ menu</th>
+              <th>Dzień</th>
+              <th>Cena za dzień</th>
+            </tr>
+          </thead>
+          <tbody>
+            {menuCard.map((item) => (
+              <tr>
+                <td>{item.id}</td>
+                <td>{item.menuName}</td>
+                <td>{item.date}</td>
+                <td>{item.totalPrice}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Container>
+      <Table>
+        <thead>
+          <tr>
+            <th>Do zapłaty: </th>
+          </tr>
+        </thead>
+        <tbody>{sum}</tbody>
+      </Table>
+    </Container>
   );
-};
-export default CardPL;
+}

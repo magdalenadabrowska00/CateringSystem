@@ -107,12 +107,6 @@ const Layout = ({ children }) => {
                 Card
               </Nav.Link>
             )}
-
-            {user && !polishLanguage && client && (
-              <Nav.Link as={Link} to="/cardEnTable">
-                cardEnTable
-              </Nav.Link>
-            )}
           </Nav>
           {user && (
             <Button

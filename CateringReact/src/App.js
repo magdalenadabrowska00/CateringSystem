@@ -25,7 +25,7 @@ import GetAllRestaurantsPL from "./pages/Polish/GetAllRestaurantsPL";
 import GetRestaurantByIdPL from "./pages/Polish/GetRestaurantByIdPL";
 import GetMenusForRestaurantPL from "./pages/Polish/GetMenusForRestaurantPL";
 import GetMenuDetailsByIdForRestaurantPL from "./pages/Polish/GetMenuDetailsByIdForRestaurantPL";
-import CardTable from "./pages/English/CardTable";
+import CardTable from "./pages/English/CardEN";
 
 function App() {
   return (
@@ -47,10 +47,8 @@ function App() {
                 <Route path="/orderFormPL" element={<OrderFormPL />}></Route>
                 <Route path="/orderFormEN" element={<OrderFormEN />}></Route>
 
-                <Route path="/cardEn" element={<CardEN />}></Route>
+                <Route path="/cardEN" element={<CardEN />}></Route>
                 <Route path="/cardPL" element={<CardPL />}></Route>
-
-                <Route path="/cardEnTable" element={<CardTable />}></Route>
 
                 <Route
                   path="/restaurantsEN"
